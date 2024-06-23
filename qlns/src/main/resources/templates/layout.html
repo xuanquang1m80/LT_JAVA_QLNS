@@ -123,41 +123,78 @@
 
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
-
     <ul class="sidebar-nav" id="sidebar-nav">
-
         <li class="nav-item">
             <a class="nav-link ">
                 <i class="bi bi-grid"></i>
                 <span>Tổng Quan</span>
             </a>
-        </li><!-- End Dashboard Nav -->
-
+        </li><!-- Kết thúc Nav Tổng Quan -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#luong-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-cash-stack"></i><span>Bằng Cấp</span>
+            </a>
+        </li><!-- End Tables Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#phongban-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-cash-stack"></i><span>Phòng Ban</span>
+            </a>
+        </li><!-- End Tables Nav -->
+        <li class="nav-item">
+            <a class="nav-link ">
+                <i class="bi bi-grid"></i>
+                <span>Nhân Viên</span>
+            </a>
+        </li><!-- Kết thúc Nav Nhân Viên -->
+        <li class="nav-item">
+            <a class="nav-link ">
+                <i class="bi bi-grid"></i>
+                <span>Phòng Ban</span>
+            </a>
+        </li><!-- Kết thúc Nav Phòng Ban -->
+        <li class="nav-item">
+            <a class="nav-link ">
+                <i class="bi bi-grid"></i>
+                <span>Trình Độ</span>
+            </a>
+        </li><!-- Kết thúc Nav Trình Độ -->
+        <li class="nav-item">
+            <a class="nav-link ">
+                <i class="bi bi-grid"></i>
+                <span>Chuyên Môn</span>
+            </a>
+        </li><!-- Kết thúc Nav Chuyên Môn -->
+        <li class="nav-item">
+            <a class="nav-link ">
+                <i class="bi bi-grid"></i>
+                <span>Bằng Cấp</span>
+            </a>
+        </li><!-- Kết thúc Nav Bằng Cấp -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-cash-stack"></i><span>Bàn Billiards</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-cash-stack"></i><span>Nhân Viên</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a>
-                        <i class="bi bi-circle"></i><span>Quản Lý Bàn Billiards</span>
+                        <i class="bi bi-circle"></i><span>Quản Lý Nhân Viên</span>
                     </a>
                     <a >
-                        <i class="bi bi-circle"></i><span>Quản Lý Đặt Bàn Billiards</span>
+                        <i class="bi bi-circle"></i><span>Danh Sách Nhân Viên</span>
                     </a>
                 </li>
             </ul>
         </li><!-- End Tables Nav -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#dichvu-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-cash-stack"></i><span>Dịch Vụ</span>
+                <i class="bi bi-cash-stack"></i><span>Lương</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="dichvu-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a >
-                        <i class="bi bi-circle"></i><span>Quản Lý Dịch Vụ</span>
+                        <i class="bi bi-circle"></i><span>Quản Lý Lương</span>
                     </a>
                 </li>
             </ul>
@@ -165,12 +202,12 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#computer-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-pc-display-horizontal"></i><span>Máy Tính</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-pc-display-horizontal"></i><span>Công Tác</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="computer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a >
-                        <i class="bi bi-circle"></i><span>Quản Lý Máy Tính</span>
+                        <i class="bi bi-circle"></i><span>Quản Lý Công Tác</span>
                     </a>
                     <a >
                         <i class="bi bi-circle"></i><span>Quản Lý Đặt Máy Tính</span>
@@ -183,20 +220,20 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#custorm-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-person-square"></i><span>Khách Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-person-square"></i><span>Công Việc</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="custorm-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a>
-                        <i class="bi bi-circle"></i><span>Quản Lý Khách Hàng</span>
+                        <i class="bi bi-circle"></i><span>Quản Lý Nhóm Công Việc</span>
                     </a>
                 </li>
             </ul>
         </li>
         <!-- End Khách Hàng Nav -->
 
-        <li class="nav-heading">Pages</li>
-     <!--   @if (sessionvalue != null)
+        <!--<li class="nav-heading">Pages</li>
+        @if (sessionvalue != null)
         {
 
         <li class="nav-item">
@@ -222,8 +259,10 @@
 </aside>
 <!-- End Sidebar-->
 
-<main id="main" class="main" layout:fragment="content">
-    <!-- Nội dung chính sẽ được thay thế tại đây -->
+<main id="main" class="main">
+    <section layout:fragment="content">
+        <!-- Nội dung cụ thể của từng trang sẽ được đặt tại đây -->
+    </section>
 </main>
 <!-- End #main -->
 
@@ -236,5 +275,6 @@
 
 <!-- Template Main JS File -->
 <script th:src="@{/assets/js/main.js}" ></script>
+<script th:src="@{/js/editModal.js}"></script> <!-- Import the new JS file -->
 </body>
 </html>
