@@ -1,13 +1,10 @@
-server:
-  port: 8080
-  servlet:
-    context-path: /HRM
+
 
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/qlns
     username: root
-    password:
+    password: root
   jpa:
     hibernate:
       ddl-auto: update
