@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Employee Manager </title>
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon" type="image/png">
+    <link th:href="@{/assets/img/apple-touch-icon.png}" rel="apple-touch-icon" type="image/png">
+    <!-- Google Fonts -->
+    <link th:href="@{https://fonts.gstatic.com}" rel="preconnect">
+    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" >
+    <link type="text/css" th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link type="text/css" th:href="@{/assets/css/style.css}" rel="stylesheet">
+    <!--Link Boostrap v5.3-->
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH}" crossorigin="anonymous">
+
+</head>
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <a class="logo d-flex align-items-center">
+            <img th:src="@{/assets/img/logo.png}" alt="">
+            <span class="d-none d-lg-block">BILLIARDS-VIP</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle " href="#">
+                    <i class="bi bi-search"></i>
+                </a>
+            </li><!-- End Search Icon-->
+
+            <li class="nav-item dropdown pe-3">
+            <!--    @if (sessionvalue != null)
+                {
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <img src="~/images/avatar.jpg" alt="Profile" class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">@sessionvalue</span>
+                </a>
+
+                &lt;!&ndash; End Profile Iamge Icon &ndash;&gt;
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                        <h6>@sessionvalue!</h6>
+                        <span>Chủ Cửa Hàng</span>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Profile", "Auth")">
+                        <i class="bi bi-person"></i>
+                        <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Profile", "Auth")">
+                        <i class="bi bi-gear"></i>
+                        <span>Account Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Logout", "Auth")">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Sign Out</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                &lt;!&ndash; End Profile Dropdown Items &ndash;&gt;
+                }
+                else
+                {
+                <a class="nav-link collapsed" asp-controller="Auth" asp-action="Login">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Đăng Nhập</span>
+                </a>
+                }-->
+
+            </li><!-- End Profile Nav -->
+
+        </ul>
+    </nav><!-- End Icons Navigation -->
+
+</header>
+<!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link ">
+                <i class="bi bi-grid"></i>
+                <span>Tổng Quan</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-cash-stack"></i><span>Bàn Billiards</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a>
+                        <i class="bi bi-circle"></i><span>Quản Lý Bàn Billiards</span>
+                    </a>
+                    <a >
+                        <i class="bi bi-circle"></i><span>Quản Lý Đặt Bàn Billiards</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Tables Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#dichvu-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-cash-stack"></i><span>Dịch Vụ</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="dichvu-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a >
+                        <i class="bi bi-circle"></i><span>Quản Lý Dịch Vụ</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Tables Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#computer-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-pc-display-horizontal"></i><span>Máy Tính</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="computer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a >
+                        <i class="bi bi-circle"></i><span>Quản Lý Máy Tính</span>
+                    </a>
+                    <a >
+                        <i class="bi bi-circle"></i><span>Quản Lý Đặt Máy Tính</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <!-- End Computers Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#custorm-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-person-square"></i><span>Khách Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="custorm-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a>
+                        <i class="bi bi-circle"></i><span>Quản Lý Khách Hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- End Khách Hàng Nav -->
+
+        <li class="nav-heading">Pages</li>
+     <!--   @if (sessionvalue != null)
+        {
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Logout", "Auth")">
+            <i class="bi bi-box-arrow-in-right"></i>
+            <span>Đăng Xuất</span>
+            </a>
+        </li>
+
+        &lt;!&ndash; End Login Page Nav &ndash;&gt;
+        }else
+        {
+        <li class="nav-item">
+            <a class="nav-link collapsed" asp-controller="Auth" asp-action="Login">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Đăng Nhập</span>
+            </a>
+        </li>
+        }-->
+
+    </ul>
+
+</aside>
+<!-- End Sidebar-->
+
+<main id="main" class="main" layout:fragment="content">
+    <!-- Nội dung chính sẽ được thay thế tại đây -->
+</main>
+<!-- End #main -->
+
+
+<!-- Link Jquery Script-->
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+
+
+<!-- Template Main JS File -->
+<script th:src="@{/assets/js/main.js}" ></script>
+</body>
+</html>

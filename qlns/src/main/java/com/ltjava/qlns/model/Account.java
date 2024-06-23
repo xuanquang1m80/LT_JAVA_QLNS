@@ -33,7 +33,7 @@ public class Account implements UserDetails{
     @Size(min = 1, max = 20, message = "Username phải trong khoảng 1 và 20 kí tự")
     String username;
 
-    @Column(name = "password", length = 20)
+    @Column(name = "password", length = 250)
     @NotBlank(message = "Password là bắt buộc")
     String password;
 
