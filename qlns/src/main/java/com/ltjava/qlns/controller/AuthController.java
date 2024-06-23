@@ -22,4 +22,9 @@ public class AuthController {
     public String test(){
         return "home";
     }
+
+    @GetMapping("/403")
+    public String accesdenied(){
+        return "403";
+    }
 }
