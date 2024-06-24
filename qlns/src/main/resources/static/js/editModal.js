@@ -30,3 +30,18 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
+//Chuyên Môn
+ document.addEventListener("DOMContentLoaded", function() {
+        var editButtons = document.querySelectorAll(".editButton");
+        editButtons.forEach(function(button) {
+            button.addEventListener("click", function() {
+                var id = button.getAttribute("data-id");
+                var tenCM = button.getAttribute("data-tenCM");
+                var moTa = button.getAttribute("data-moTa");
+
+                document.getElementById("editId").value = id;
+                document.getElementById("inputTextEdit").value = tenCM;
+                document.getElementById("inputDescriptionEdit").value = moTa;
+            });
+        });
+    });
