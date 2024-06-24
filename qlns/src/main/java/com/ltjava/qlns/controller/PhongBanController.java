@@ -5,10 +5,11 @@ import com.ltjava.qlns.service.PhongBanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+// @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api/phongbans")
 public class PhongBanController {
@@ -49,3 +50,4 @@ public class PhongBanController {
         return ResponseEntity.noContent().build();
     }
 }
+
