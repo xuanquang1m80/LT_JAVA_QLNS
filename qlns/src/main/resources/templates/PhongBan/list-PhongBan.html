@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Phòng Ban</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>Danh Sách Phòng Ban</h1>
+
+    <button id="addPhongBanBtn">Thêm Phòng Ban</button>
+
+    <table id="phongBanTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên Phòng Ban</th>
+            <th>Mô Tả</th>
+            <th>Ngày Tạo</th>
+            <th>Ngày Sửa</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div id="addPhongBanModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Thêm/Sửa Phòng Ban</h2>
+            <form id="phongBanForm">
+                <input type="hidden" id="phongBanId">
+                <label for="tenPB">Tên Phòng Ban:</label><br>
+                <input type="text" id="tenPB" name="tenPB"><br>
+                <label for="moTa">Mô Tả:</label><br>
+                <textarea id="moTa" name="moTa"></textarea><br><br>
+                <button type="submit">Lưu</button>
+            </form>
+        </div>
+    </div>
+</section>
+    <script th:src="@{/assets/js/scriptPhongBan.js}"></script>
+
+
+</body>
+</html>
