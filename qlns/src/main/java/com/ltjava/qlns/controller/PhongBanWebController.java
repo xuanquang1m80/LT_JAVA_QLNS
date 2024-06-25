@@ -2,7 +2,9 @@ package com.ltjava.qlns.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+// @RequestMapping("/phongbans")
 @Controller
 public class PhongBanWebController {
 
