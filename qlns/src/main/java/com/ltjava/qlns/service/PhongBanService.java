@@ -12,12 +12,8 @@ import java.util.List;
 @Service
 public class PhongBanService {
 
-    private final PhongBanRepository phongBanRepository;
-
     @Autowired
-    public PhongBanService(PhongBanRepository phongBanRepository) {
-        this.phongBanRepository = phongBanRepository;
-    }
+    private PhongBanRepository phongBanRepository;
 
     public List<PhongBan> getAllPhongBans() {
         return phongBanRepository.findAll();
@@ -29,7 +25,7 @@ public class PhongBanService {
     }
 
     public PhongBan createPhongBan(PhongBan phongBan) {
-        phongBan.setNgayTao(new Date()); // Thiết lập ngày tạo
+        phongBan.setNgayTao(new Date());
         return phongBanRepository.save(phongBan);
     }
 
@@ -37,7 +33,7 @@ public class PhongBanService {
         PhongBan phongBan = getPhongBanById(id);
         phongBan.setTenPB(phongBanDetails.getTenPB());
         phongBan.setMoTa(phongBanDetails.getMoTa());
-        phongBan.setNgaySua(new Date()); // Thiết lập ngày sửa
+        phongBan.setNgaySua(new Date());
         return phongBanRepository.save(phongBan);
     }
 

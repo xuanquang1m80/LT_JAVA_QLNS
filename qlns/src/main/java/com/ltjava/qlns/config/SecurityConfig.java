@@ -1,7 +1,6 @@
 package com.ltjava.qlns.config;
 
 
-
 import com.ltjava.qlns.service.AccountService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -13,17 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -35,7 +27,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
@@ -51,14 +43,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/assets/**", "/css/**", "/js/**", "/vendor/**", "/"
-                                , "/oauth/**", "/error", "/**/*.js", "/**/*.css")
-                        .permitAll() // Cho phép truy cập không cần xác thực.
-                        /*.requestMatchers("/products/edit/**", "/products/add", "/products/delete")
-                        .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.*/
-                        /*.requestMatchers("/api/**")*/
-                        //.permitAll() // API mở cho mọi người dùng.
-                        .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
+                                .requestMatchers("/assets/**","/css/**", "/js/**","/vendor/**","/oauth/**", "/error")
+                                .permitAll() // Cho phép truy cập không cần xác thực.
+//                        .requestMatchers("/home")
+//                        .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
+                                /*.requestMatchers("/api/**")*/
+                                //.permitAll() // API mở cho mọi người dùng.
+                                .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
                 )
 
 
@@ -98,6 +89,5 @@ public class SecurityConfig {
                 )
                 .build(); // Xây dựng và trả về chuỗi lọc bảo mật.
     }
-
 
 }
