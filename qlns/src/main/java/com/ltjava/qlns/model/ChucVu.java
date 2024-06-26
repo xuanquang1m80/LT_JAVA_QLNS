@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -29,6 +30,9 @@ public class ChucVu {
     @Digits(integer = 10, fraction = 2, message = "Lương không hợp lệ")
     @Column(nullable = false)
     BigDecimal Luong;
+
+    @Positive(message = "Hệ số lương phải là số dương")
+    Double heSoLuong;
 
     String moTa;
 

@@ -81,4 +81,8 @@ public class NhanVien {
             inverseJoinColumns = @JoinColumn(name = "IDNhomNV")
     )
     Set<NhomNhanVien> nhomNhanViens;
+
+
+    @OneToOne(mappedBy = "nhanVien", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    private Account account;
 }

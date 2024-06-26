@@ -23,6 +23,7 @@ public class TinhLuong {
 
     BigDecimal luongThang;
     Integer ngayCong;
+    Integer ngayNghi;
     BigDecimal phuCap;
     BigDecimal tamUng;
     BigDecimal thucLanh;
