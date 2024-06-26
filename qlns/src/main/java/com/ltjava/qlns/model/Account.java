@@ -64,6 +64,10 @@ public class Account implements UserDetails{
                 .toList();
     }
 
+    @OneToOne
+    @JoinColumn(name = "nhan_vien_id")
+    NhanVien nhanVien;
+
     @Override
     public boolean isAccountNonExpired() {
         return UserDetails.super.isAccountNonExpired();
