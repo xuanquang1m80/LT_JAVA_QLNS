@@ -13,23 +13,29 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-// Chức vụ
- document.addEventListener("DOMContentLoaded", function() {
-        var editButtons = document.querySelectorAll(".editButton");
-        editButtons.forEach(function(button) {
-            button.addEventListener("click", function() {
-                var id = button.getAttribute("data-id");
-                var tenChucVu = button.getAttribute("data-tenChucVu");
-                var luong = button.getAttribute("data-luong");
-                var moTa = button.getAttribute("data-moTa");
+//Chuc Vu
+document.addEventListener("DOMContentLoaded", function() {
+    var editButtons = document.querySelectorAll(".editButton");
+    editButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            var id = button.getAttribute("data-id");
+            var tenChucVu = button.getAttribute("data-tenChucVu");
+            var luong = button.getAttribute("data-luong");
+            var moTa = button.getAttribute("data-moTa");
 
-                document.getElementById("editId").value = id;
-                document.getElementById("inputTenChucVuEdit").value = tenChucVu;
-                document.getElementById("inputLuongEdit").value = luong;
-                document.getElementById("inputMoTaEdit").value = moTa;
-            });
+            document.getElementById("editId").value = id;
+            document.getElementById("inputTenChucVuEdit").value = tenChucVu;
+            document.getElementById("inputLuongEdit").value = luong;
+            document.getElementById("inputMoTaEdit").value = moTa;
+
+            var ngayTao = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            document.getElementById("inputNgayTaoEdit").value = ngayTao;
         });
     });
+});
+
+
+
 //Chuyên Môn
  document.addEventListener("DOMContentLoaded", function() {
         var editButtons = document.querySelectorAll(".editButton");
