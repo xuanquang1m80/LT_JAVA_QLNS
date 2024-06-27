@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Quản lý Nhân Viên</title>
+    <!-- Thêm các thư viện CSS và JS cần thiết -->
+    <link rel="stylesheet" th:href="@{assets/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{assets/css/style.css}">
+    <script th:src="@{assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+    <div class="pagetitle">
+        <h1>Nhân Viên</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                <li class="breadcrumb-item active">Nhân Viên</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Danh Sách Nhân Viên</h5>
+            <!-- Button thêm nhân viên modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                Thêm Nhân Viên
+            </button>
+            <!-- Default Table -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Tên Nhân Viên</th>
+                    <th scope="col">CCCD</th>
+                    <th scope="col">Ngày Sinh</th>
+                    <th scope="col">Hộ Khẩu</th>
+                    <th scope="col">Số Điện Thoại</th>
+                    <th scope="col">Giới Tính</th>
+                    <th scope="col">Loại Nhân Viên</th>
+                    <th scope="col">Phòng Ban</th>
+                    <th scope="col">Bằng Cấp</th>
+                    <th scope="col">Chức Vụ</th>
+                    <th scope="col">Chuyên Môn</th>
+                    <th scope="col">Trạng Thái</th>
+                    <th scope="col">Trình Độ</th>
+                    <th scope="col">Chức năng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="nhanVien : ${nhanViens}">
+                    <th scope="row" th:text="${nhanVien.id}"></th>
+                    <td th:text="${nhanVien.tenNV}"></td>
+                    <td th:text="${nhanVien.CCCD}"></td>
+                    <td th:text="${#dates.format(nhanVien.ngaySinh, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${nhanVien.hoKhau}"></td>
+                    <td th:text="${nhanVien.SDT}"></td>
+                    <td th:text="${nhanVien.gioiTinh}"></td>
+                    <td th:text="${nhanVien.loaiNhanVien.tenLoaiNV}"></td>
+                    <td th:text="${nhanVien.phongBan.tenPhongBan}"></td>
+                    <td th:text="${nhanVien.bangCap.tenBangCap}"></td>
+                    <td th:text="${nhanVien.chucVu.tenChucVu}"></td>
+                    <td th:text="${nhanVien.chuyenMon.tenChuyenMon}"></td>
+                    <td th:text="${nhanVien.trangThai.tenTrangThai}"></td>
+                    <td th:text="${nhanVien.trinhDo.tenTrinhDo}"></td>
+                    <td>
+                        <!-- Button chỉnh sửa nhân viên modal -->
+                        <button type="button" class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editModal"
+                                th:attr="data-id=${nhanVien.id},
+                                         data-tenNV=${nhanVien.tenNV},
+                                         data-CCCD=${nhanVien.CCCD},
+                                         data-ngaySinh=${#dates.format(nhanVien.ngaySinh, 'yyyy-MM-dd')},
+                                         data-hoKhau=${nhanVien.hoKhau},
+                                         data-SDT=${nhanVien.SDT},
+                                         data-gioiTinh=${nhanVien.gioiTinh},
+                                         data-loaiNhanVien=${nhanVien.loaiNhanVien.id},
+                                         data-phongBan=${nhanVien.phongBan.id},
+                                         data-bangCap=${nhanVien.bangCap.id},
+                                         data-chucVu=${nhanVien.chucVu.id},
+                                         data-chuyenMon=${nhanVien.chuyenMon.id},
+                                         data-trangThai=${nhanVien.trangThai.id},
+                                         data-trinhDo=${nhanVien.trinhDo.id}">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <!-- Button xóa nhân viên -->
+                        <a th:href="@{'/nhanvien/delete/' + ${nhanVien.id}}" class="btn btn-outline-danger">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- End Default Table Example -->
+        </div>
+    </div>
+
+    <!-- Modal thêm nhân viên -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Thêm Nhân Viên Mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/nhanvien}" method="post">
+                        <div class="row mb-3">
+                            <label for="inputTenNVAdd" class="col-sm-5 col-form-label">Tên Nhân Viên</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputTenNVAdd" class="form-control" name="tenNV" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputCCCDAdd" class="col-sm-5 col-form-label">CCCD</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputCCCDAdd" class="form-control" name="CCCD" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNgaySinhAdd" class="col-sm-5 col-form-label">Ngày Sinh</label>
+                            <div class="col-sm-15">
+                                <input type="date" id="inputNgaySinhAdd" class="form-control" name="ngaySinh" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputHoKhauAdd" class="col-sm-5 col-form-label">Hộ Khẩu</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputHoKhauAdd" class="form-control" name="hoKhau" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputSDTAdd" class="col-sm-5 col-form-label">Số Điện Thoại</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputSDTAdd" class="form-control" name="SDT" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputGioiTinhAdd" class="col-sm-5 col-form-label">Giới Tính</label>
+                            <div class="col-sm-15">
+                                <select id="inputGioiTinhAdd" class="form-control" name="gioiTinh" required>
+                                    <option value="NAM">Nam</option>
+                                    <option value="NU">Nữ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputLoaiNVAdd" class="col-sm-5 col-form-label">Loại Nhân Viên</label>
+                            <div class="col-sm-15">
+                                <select id="inputLoaiNVAdd" class="form-control" name="loaiNhanVien.id" required>
+                                    <option th:each="loaiNV : ${loaiNhanViens}" th:value="${loaiNV.id}" th:text="${loaiNV.tenLoaiNV}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputPhongBanAdd" class="col-sm-5 col-form-label">Phòng Ban</label>
+                            <div class="col-sm-15">
+                                <select id="inputPhongBanAdd" class="form-control" name="phongBan.id" required>
+                                    <option th:each="phongBan : ${phongBans}" th:value="${phongBan.id}" th:text="${phongBan.tenPhongBan}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputBangCapAdd" class="col-sm-5 col-form-label">Bằng Cấp</label>
+                            <div class="col-sm-15">
+                                <select id="inputBangCapAdd" class="form-control" name="bangCap.id" required>
+                                    <option th:each="bangCap : ${bangCaps}" th:value="${bangCap.id}" th:text="${bangCap.tenBangCap}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputChucVuAdd" class="col-sm-5 col-form-label">Chức Vụ</label>
+                            <div class="col-sm-15">
+                                <select id="inputChucVuAdd" class="form-control" name="chucVu.id" required>
+                                    <option th:each="chucVu : ${chucVus}" th:value="${chucVu.id}" th:text="${chucVu.tenChucVu}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputChuyenMonAdd" class="col-sm-5 col-form-label">Chuyên Môn</label>
+                            <div class="col-sm-15">
+                                <select id="inputChuyenMonAdd" class="form-control" name="chuyenMon.id" required>
+                                    <option th:each="chuyenMon : ${chuyenMons}" th:value="${chuyenMon.id}" th:text="${chuyenMon.tenChuyenMon}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputTrangThaiAdd" class="col-sm-5 col-form-label">Trạng Thái</label>
+                            <div class="col-sm-15">
+                                <select id="inputTrangThaiAdd" class="form-control" name="trangThai.id" required>
+                                    <option th:each="trangThai : ${trangThais}" th:value="${trangThai.id}" th:text="${trangThai.tenTrangThai}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputTrinhDoAdd" class="col-sm-5 col-form-label">Trình Độ</label>
+                            <div class="col-sm-15">
+                                <select id="inputTrinhDoAdd" class="form-control" name="trinhDo.id" required>
+                                    <option th:each="trinhDo : ${trinhDos}" th:value="${trinhDo.id}" th:text="${trinhDo.tenTrinhDo}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal sửa nhân viên -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Nhân Viên</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/nhanvien/update}" method="post">
+                        <input type="hidden" id="editId" name="id"> <!-- Hidden input to hold the ID -->
+                        <div class="row mb-3">
+                            <label for="inputTenNVEdit" class="col-sm-5 col-form-label">Tên Nhân Viên</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputTenNVEdit" class="form-control" name="tenNV" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputCCCDEdit" class="col-sm-5 col-form-label">CCCD</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputCCCDEdit" class="form-control" name="CCCD" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNgaySinhEdit" class="col-sm-5 col-form-label">Ngày Sinh</label>
+                            <div class="col-sm-15">
+                                <input type="date" id="inputNgaySinhEdit" class="form-control" name="ngaySinh" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputHoKhauEdit" class="col-sm-5 col-form-label">Hộ Khẩu</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputHoKhauEdit" class="form-control" name="hoKhau" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputSDTEdit" class="col-sm-5 col-form-label">Số Điện Thoại</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputSDTEdit" class="form-control" name="SDT" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputGioiTinhEdit" class="col-sm-5 col-form-label">Giới Tính</label>
+                            <div class="col-sm-15">
+                                <select id="inputGioiTinhEdit" class="form-control" name="gioiTinh" required>
+                                    <option value="NAM">Nam</option>
+                                    <option value="NU">Nữ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputLoaiNVEdit" class="col-sm-5 col-form-label">Loại Nhân Viên</label>
+                            <div class="col-sm-15">
+                                <select id="inputLoaiNVEdit" class="form-control" name="loaiNhanVien.id" required>
+                                    <option th:each="loaiNV : ${loaiNhanViens}" th:value="${loaiNV.id}" th:text="${loaiNV.tenLoaiNV}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputPhongBanEdit" class="col-sm-5 col-form-label">Phòng Ban</label>
+                            <div class="col-sm-15">
+                                <select id="inputPhongBanEdit" class="form-control" name="phongBan.id" required>
+                                    <option th:each="phongBan : ${phongBans}" th:value="${phongBan.id}" th:text="${phongBan.tenPhongBan}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputBangCapEdit" class="col-sm-5 col-form-label">Bằng Cấp</label>
+                            <div class="col-sm-15">
+                                <select id="inputBangCapEdit" class="form-control" name="bangCap.id" required>
+                                    <option th:each="bangCap : ${bangCaps}" th:value="${bangCap.id}" th:text="${bangCap.tenBangCap}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputChucVuEdit" class="col-sm-5 col-form-label">Chức Vụ</label>
+                            <div class="col-sm-15">
+                                <select id="inputChucVuEdit" class="form-control" name="chucVu.id" required>
+                                    <option th:each="chucVu : ${chucVus}" th:value="${chucVu.id}" th:text="${chucVu.tenChucVu}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputChuyenMonEdit" class="col-sm-5 col-form-label">Chuyên Môn</label>
+                            <div class="col-sm-15">
+                                <select id="inputChuyenMonEdit" class="form-control" name="chuyenMon.id" required>
+                                    <option th:each="chuyenMon : ${chuyenMons}" th:value="${chuyenMon.id}" th:text="${chuyenMon.tenChuyenMon}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputTrangThaiEdit" class="col-sm-5 col-form-label">Trạng Thái</label>
+                            <div class="col-sm-15">
+                                <select id="inputTrangThaiEdit" class="form-control" name="trangThai.id" required>
+                                    <option th:each="trangThai : ${trangThais}" th:value="${trangThai.id}" th:text="${trangThai.tenTrangThai}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputTrinhDoEdit" class="col-sm-5 col-form-label">Trình Độ</label>
+                            <div class="col-sm-15">
+                                <select id="inputTrinhDoEdit" class="form-control" name="trinhDo.id" required>
+                                    <option th:each="trinhDo : ${trinhDos}" th:value="${trinhDo.id}" th:text="${trinhDo.tenTrinhDo}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editModal = document.getElementById('editModal');
+        editModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const id = button.getAttribute('data-id');
+            const tenNV = button.getAttribute('data-tenNV');
+            const CCCD = button.getAttribute('data-CCCD');
+            const ngaySinh = button.getAttribute('data-ngaySinh');
+            const hoKhau = button.getAttribute('data-hoKhau');
+            const SDT = button.getAttribute('data-SDT');
+            const gioiTinh = button.getAttribute('data-gioiTinh');
+            const loaiNhanVien = button.getAttribute('data-loaiNhanVien');
+            const phongBan = button.getAttribute('data-phongBan');
+            const bangCap = button.getAttribute('data-bangCap');
+            const chucVu = button.getAttribute('data-chucVu');
+            const chuyenMon = button.getAttribute('data-chuyenMon');
+            const trangThai = button.getAttribute('data-trangThai');
+            const trinhDo = button.getAttribute('data-trinhDo');
+
+            editModal.querySelector('#editId').value = id;
+            editModal.querySelector('#inputTenNVEdit').value = tenNV;
+            editModal.querySelector('#inputCCCDEdit').value = CCCD;
+            editModal.querySelector('#inputNgaySinhEdit').value = ngaySinh;
+            editModal.querySelector('#inputHoKhauEdit').value = hoKhau;
+            editModal.querySelector('#inputSDTEdit').value = SDT;
+            editModal.querySelector('#inputGioiTinhEdit').value = gioiTinh;
+            editModal.querySelector('#inputLoaiNVEdit').value = loaiNhanVien;
+            editModal.querySelector('#inputPhongBanEdit').value = phongBan;
+            editModal.querySelector('#inputBangCapEdit').value = bangCap;
+            editModal.querySelector('#inputChucVuEdit').value = chucVu;
+            editModal.querySelector('#inputChuyenMonEdit').value = chuyenMon;
+            editModal.querySelector('#inputTrangThaiEdit').value = trangThai;
+            editModal.querySelector('#inputTrinhDoEdit').value = trinhDo;
+        });
+    });
+</script>
+</body>
+</html>
