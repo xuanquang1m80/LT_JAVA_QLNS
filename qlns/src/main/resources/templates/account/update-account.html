@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Cập Nhật Tài Khoản</title>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+
+    <div class="pagetitle">
+        <h1>Account</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Account</li>
+                <li class="breadcrumb-item active">Update</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông Tin Account</h5>
+
+                        <!-- General Form Elements -->
+                        <form th:action="@{/account/update/{id}(id=${account.id})}" th:object="${account}" method="post">
+                            <div class="row mb-3">
+                                <label for="username" class="col-sm-2 col-form-label">UserName</label>
+                                <div class="col-sm-10">
+                                    <input type="text" th:field="*{username}" class="form-control" id="username">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="password" class="col-sm-2 col-form-label">Password New</label>
+                                <div class="col-sm-10">
+                                    <input id="password" th:field="*{password}" type="password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" id="email" th:field="*{email}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="SDT" class="col-sm-2 col-form-label">Số Điện Thoại</label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="SDT" th:field="*{SDT}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-3 justify-content-center">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                                </div>
+                            </div>
+                        </form><!-- End General Form Elements -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</section>
+</body>
+</html>
