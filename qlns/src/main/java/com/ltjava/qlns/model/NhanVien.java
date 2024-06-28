@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
 
@@ -84,5 +85,9 @@ public class NhanVien {
 
 
     @OneToOne(mappedBy = "nhanVien", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    @ToString.Exclude
     private Account account;
+
+    @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<TinhLuong> tinhLuongs;
 }
