@@ -43,7 +43,8 @@
                     <td th:text="${chucVu.moTa}">Quản lý</td>
                     <td>
                         <!-- Button chỉnh sửa chức vụ modal -->
-                        <button type="button" class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editModal" th:attr="data-id=${chucVu.id}, data-tenChucVu=${chucVu.tenChucVu}, data-luong=${chucVu.luong}, data-moTa=${chucVu.moTa}">
+                        <button type="button" class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editModal"
+                                th:attr="data-id=${chucVu.id}, data-tenChucVu=${chucVu.tenChucVu}, data-luong=${chucVu.luong}, data-moTa=${chucVu.moTa}">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                         <!-- Button xóa chức vụ -->

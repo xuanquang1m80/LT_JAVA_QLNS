@@ -12,21 +12,21 @@ import java.util.Optional;
 public class CongTacService {
 
     @Autowired
-    private CongTacRepository congTacRepository;
+    private CongTacRepository congtacRepository;
 
     public List<CongTac> getAllCongTac() {
-        return congTacRepository.findAll();
+        return congtacRepository.findAll();
     }
 
     public Optional<CongTac> getCongTacById(Long id) {
-        return congTacRepository.findById(id);
+        return congtacRepository.findById(id);
     }
 
-    public CongTac createOrUpdateCongTac(CongTac congTac) {
-        return congTacRepository.save(congTac);
+    public CongTac saveCongTac(CongTac congTac) {
+        return congtacRepository.save(congTac);
     }
 
     public void deleteCongTac(Long id) {
-        congTacRepository.deleteById(id);
+        congtacRepository.deleteById(id);
     }
 }
