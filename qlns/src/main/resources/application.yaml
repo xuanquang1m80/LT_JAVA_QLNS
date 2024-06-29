@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/qlns
@@ -8,5 +7,18 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+      max-request-size: 2MB
+  resources:  # Cấu hình tài nguyên tĩnh
+    cache:
+      period: 0  # Tắt bộ nhớ đệm tài nguyên tĩnh (0 có nghĩa là không lưu trữ)
+      chain:
+        cache: false  # Vô hiệu hóa bộ nhớ đệm trong chuỗi xử lý tài nguyên
 
-
+# Cấu hình logging để dễ dàng theo dõi quá trình upload file
+logging:
+  level:
+    org.springframework.web: DEBUG
