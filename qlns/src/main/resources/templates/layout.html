@@ -31,7 +31,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <a class="logo d-flex align-items-center">
             <img th:src="@{/assets/img/logo.png}" alt="">
-            <span class="d-none d-lg-block">EMPLOYEE MANAGER</span>
+            <span class="d-none d-lg-block">BILLIARDS-VIP</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -53,6 +53,66 @@
             </li><!-- End Search Icon-->
 
             <li class="nav-item dropdown pe-3">
+            <!--    @if (sessionvalue != null)
+                {
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <img src="~/images/avatar.jpg" alt="Profile" class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">@sessionvalue</span>
+                </a>
+
+                &lt;!&ndash; End Profile Iamge Icon &ndash;&gt;
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                        <h6>@sessionvalue!</h6>
+                        <span>Chủ Cửa Hàng</span>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Profile", "Auth")">
+                        <i class="bi bi-person"></i>
+                        <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Profile", "Auth")">
+                        <i class="bi bi-gear"></i>
+                        <span>Account Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Logout", "Auth")">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Sign Out</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                &lt;!&ndash; End Profile Dropdown Items &ndash;&gt;
+                }
+                else
+                {
+                <a class="nav-link collapsed" asp-controller="Auth" asp-action="Login">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Đăng Nhập</span>
+                </a>
+                }-->
+
             </li><!-- End Profile Nav -->
 
         </ul>
@@ -85,6 +145,7 @@
                 <i class="bi bi-cash-stack"></i><span>Chuyên Môn</span>
             </a>
         </li><!-- End Chuyên Môn Nav -->
+
         <li class="nav-item">
             <a class="nav-link ">
                 <i class="bi bi-grid"></i>
@@ -115,6 +176,7 @@
                 <span>Bằng Cấp</span>
             </a>
         </li><!-- Kết thúc Nav Bằng Cấp -->
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-cash-stack"></i><span>Nhân Viên</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -129,7 +191,7 @@
                     </a>
                 </li>
             </ul>
-        </li><!-- End Nhân Viên Nav -->
+        </li><!-- End Tables Nav -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#dichvu-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-cash-stack"></i><span>Lương</span>
@@ -142,50 +204,62 @@
                     </a>
                 </li>
             </ul>
-        </li><!-- End Lương Nav -->
+        </li><!-- End Tables Nav -->
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#computer-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-pc-display-horizontal"></i><span>Công Tác</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="computer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a>
+                    <a >
                         <i class="bi bi-circle"></i><span>Quản Lý Công Tác</span>
+                    </a>
+                    <a >
+                        <i class="bi bi-circle"></i><span>Quản Lý Đặt Máy Tính</span>
                     </a>
                 </li>
 
             </ul>
-        </li><!-- End Cong tác Nav -->
+        </li>
+        <!-- End Computers Nav -->
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#custorm-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-person-square"></i><span>Nhóm Nhân Viên</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-person-square"></i><span>Công Việc</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="custorm-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a>
-                        <i class="bi bi-circle"></i><span>Quản Lý Nhóm Nhân Viên</span>
+                        <i class="bi bi-circle"></i><span>Quản Lý Nhóm Công Việc</span>
                     </a>
                 </li>
             </ul>
         </li>
-        <!-- Nhóm Nhan Vien -->
+        <!-- End Khách Hàng Nav -->
+
+        <!--<li class="nav-heading">Pages</li>
+        @if (sessionvalue != null)
+        {
+
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#account-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-person-square"></i><span>Tài Khoản</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link collapsed" href="@Url.Action("Logout", "Auth")">
+            <i class="bi bi-box-arrow-in-right"></i>
+            <span>Đăng Xuất</span>
             </a>
-            <ul id="account-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a th:href="@{/account/edit}">
-                        <i class="bi bi-circle"></i><span>Sửa Tài Khoản</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <i class="bi bi-circle"></i><span>Phân Quyền</span>
-                    </a>
-                </li>
-            </ul>
         </li>
+
+        &lt;!&ndash; End Login Page Nav &ndash;&gt;
+        }else
+        {
+        <li class="nav-item">
+            <a class="nav-link collapsed" asp-controller="Auth" asp-action="Login">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Đăng Nhập</span>
+            </a>
+        </li>
+        }-->
+
     </ul>
 
 </aside>
