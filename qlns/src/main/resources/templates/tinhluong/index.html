@@ -7,53 +7,90 @@
 </head>
 <body>
 <section layout:fragment="content" class="container mt-5">
-    <h1 class="mb-4">Tính Lương</h1>
-    <form action="#" th:action="@{/tinhluong/tinh}" th:object="${tinhLuong}" method="post">
-     <!--   <div class="mb-3">
-            <label for="nhanVienId" class="form-label">ID Nhân Viên:</label>
-            <input type="text" id="nhanVienId" name="nhanVienId" class="form-control" required />
-        </div>-->
-        <div class="mb-3">
-            <label for="nhanVienId" class="form-label">Tên Nhân Viên:</label>
-            <select id="nhanVienId" name="nhanVienId" class="form-select" required>
-                <option value="">Chọn Tên Nhân Viên</option>
-                <!-- Thymeleaf iteration for employee names -->
-                <option th:each="nhanVien : ${listOfEmployees}" th:value="${nhanVien.id}" th:text="${nhanVien.tenNV}"></option>
-            </select>
-        </div>
+    <div class="pagetitle">
+        <h1>Tính Lương</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item">Tính Lương</li>
+            </ol>
+        </nav>
+    </div>
 
-        <div class="mb-3">
-            <label for="luongThang" class="form-label">Lương Tháng:</label>
-            <input type="text" id="luongThang" th:field="*{luongThang}" class="form-control" required />
-        </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="row g-3" action="#" th:action="@{/tinhluong/tinh}" th:object="${tinhLuong}" method="post">
+                            <div class="col-md-4">
+                                <label for="nhanVienId" class="form-label">Tên Nhân Viên:</label>
+                                <select id="nhanVienId" name="nhanVienId" class="form-select" required>
+                                    <option value="">Chọn Tên Nhân Viên</option>
+                                    <!-- Thymeleaf iteration for employee names -->
+                                    <option th:each="nhanVien : ${listOfEmployees}" th:value="${nhanVien.id}" th:text="${nhanVien.tenNV}"></option>
+                                </select>
+                            </div>
 
-        <div class="mb-3">
-            <label for="ngayCong" class="form-label">Ngày Công:</label>
-            <input type="text" id="ngayCong" th:field="*{ngayCong}" class="form-control" required />
-        </div>
+                            <div class="col-md-3">
+                                <label for="luongThang" class="form-label">Lương Tháng:</label>
+                                <input type="text" id="luongThang" th:field="*{luongThang}" class="form-control" required />
+                            </div>
 
-        <div class="mb-3">
-            <label for="ngayNghi" class="form-label">Ngày Nghỉ:</label>
-            <input type="text" id="ngayNghi" th:field="*{ngayNghi}" class="form-control" />
-        </div>
+                            <div class="col-md-3">
+                                <label for="ngayCong" class="form-label">Ngày Công:</label>
+                                <input type="text" id="ngayCong" th:field="*{ngayCong}" class="form-control" required />
+                            </div>
 
-        <div class="mb-3">
-            <label for="phuCap" class="form-label">Phụ Cấp:</label>
-            <input type="text" id="phuCap" th:field="*{phuCap}" class="form-control" />
-        </div>
+                            <div class="col-md-2">
+                                <label for="ngayNghi" class="form-label">Ngày Nghỉ:</label>
+                                <input type="text" id="ngayNghi" th:field="*{ngayNghi}" class="form-control" />
+                            </div>
 
-        <div class="mb-3">
-            <label for="tamUng" class="form-label">Tạm Ứng:</label>
-            <input type="text" id="tamUng" th:field="*{tamUng}" class="form-control" />
-        </div>
+                            <div class="col-md-3">
+                                <label for="phuCap" class="form-label">Phụ Cấp:</label>
+                                <input type="text" id="phuCap" th:field="*{phuCap}" class="form-control" />
+                            </div>
 
-        <div class="mb-3">
-            <label for="moTa" class="form-label">Mô Tả:</label>
-            <textarea id="moTa" th:field="*{moTa}" class="form-control"></textarea>
-        </div>
+                            <div class="col-md-3">
+                                <label for="tamUng" class="form-label">Tạm Ứng:</label>
+                                <input type="text" id="tamUng" th:field="*{tamUng}" class="form-control" />
+                            </div>
 
-        <button type="submit" class="btn btn-primary">Tính Lương</button>
-    </form>
+                            <div class="col-md-12">
+                                <label for="moTa" class="form-label">Mô Tả:</label>
+                                <textarea id="moTa" th:field="*{moTa}" class="form-control"></textarea>
+                            </div>
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">Tính Lương</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <table class="table-danger">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nhân Viên</th>
+                        <th scope="col">Ngày Công</th>
+                        <th scope="col">Ngày Nghỉ</th>
+                        <th scope="col">Phụ Cấp</th>
+                        <th scope="col">Tạm Ứng</th>
+                        <th scope="col">Thực Lãnh</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
 
     <div th:if="${error}" class="mt-3">
         <p class="alert alert-danger" th:text="${error}"></p>

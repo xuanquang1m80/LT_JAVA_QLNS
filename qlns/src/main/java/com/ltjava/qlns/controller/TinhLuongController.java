@@ -2,6 +2,7 @@ package com.ltjava.qlns.controller;
 
 import com.ltjava.qlns.model.NhanVien;
 import com.ltjava.qlns.model.TinhLuong;
+import com.ltjava.qlns.service.ChucVuService;
 import com.ltjava.qlns.service.NhanVienService;
 import com.ltjava.qlns.service.TinhLuongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ public class TinhLuongController {
 
     @Autowired
     private NhanVienService nhanVienService;
-
+    @Autowired
+    private ChucVuService chucVuService;
     @GetMapping
     public String viewTinhLuongPage(Model model) {
         List<NhanVien> listOfEmployees = nhanVienService.getAllNhanViens(); // Sửa đổi này để lấy danh sách nhân viên

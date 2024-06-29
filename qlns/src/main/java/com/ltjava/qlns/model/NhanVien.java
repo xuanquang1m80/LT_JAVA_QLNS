@@ -8,6 +8,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.Set;
@@ -29,7 +31,10 @@ public class NhanVien {
     @Pattern(regexp = "^[0-9]*$", message = "CCCD là bắt buộc")
     String CCCD;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date ngaySinh;
+
+
     String hoKhau;
 
     @Column(name = "phone", length = 10, unique = true)

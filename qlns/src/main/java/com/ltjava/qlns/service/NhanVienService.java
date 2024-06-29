@@ -21,4 +21,11 @@ public class NhanVienService {
     public Optional<NhanVien> getNhanVienById(Long id) {
         return nhanVienRepository.findById(id);
     }
+    public void saveNhanVien(NhanVien nhanVien) {
+        nhanVienRepository.save(nhanVien);
+    }
+
+    public void deleteNhanVien(Long id) {
+        nhanVienRepository.deleteById(id);
+    }
 }
