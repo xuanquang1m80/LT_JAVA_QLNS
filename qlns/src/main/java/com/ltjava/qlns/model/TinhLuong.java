@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,6 +25,7 @@ public class TinhLuong {
     BigDecimal phuCap;
     BigDecimal tamUng;
     BigDecimal thucLanh;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date ngayTinhLuong;
 
     String moTa;

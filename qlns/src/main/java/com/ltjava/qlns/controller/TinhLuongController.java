@@ -1,17 +1,17 @@
 package com.ltjava.qlns.controller;
 
-import com.ltjava.qlns.model.NhanVien;
 import com.ltjava.qlns.model.TinhLuong;
-import com.ltjava.qlns.service.ChucVuService;
-import com.ltjava.qlns.service.NhanVienService;
+import com.ltjava.qlns.model.NhanVien;
+import com.ltjava.qlns.repository.TinhLuongRepository;
 import com.ltjava.qlns.service.TinhLuongService;
+import com.ltjava.qlns.repository.NhanVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/tinhluong")
@@ -21,29 +21,36 @@ public class TinhLuongController {
     private TinhLuongService tinhLuongService;
 
     @Autowired
-    private NhanVienService nhanVienService;
+    private NhanVienRepository nhanVienRepository;
+
     @Autowired
-    private ChucVuService chucVuService;
+    private TinhLuongRepository tinhLuongRepository;
+
     @GetMapping
-    public String viewTinhLuongPage(Model model) {
-        List<NhanVien> listOfEmployees = nhanVienService.getAllNhanViens(); // Sửa đổi này để lấy danh sách nhân viên
+    public String showTinhLuongForm(Model model) {
+        List<NhanVien> listOfEmployees = nhanVienRepository.findAll();
+        model.addAttribute("listOfEmployees", listOfEmployees);
         model.addAttribute("tinhLuong", new TinhLuong());
-        model.addAttribute("listOfEmployees", listOfEmployees); // Thêm danh sách nhân viên vào model
+        List<TinhLuong> processedEmployees = tinhLuongRepository.findAll();
+        model.addAttribute("processedEmployees", processedEmployees);
         return "tinhluong/index";
     }
 
     @PostMapping("/tinh")
-    public String tinhLuong(@ModelAttribute TinhLuong tinhLuong, @RequestParam Long nhanVienId, Model model) {
-        Optional<NhanVien> nhanVienOpt = nhanVienService.getNhanVienById(nhanVienId);
-        if (nhanVienOpt.isPresent()) {
-            NhanVien nhanVien = nhanVienOpt.get();
-            TinhLuong result = tinhLuongService.tinhLuong(nhanVien, tinhLuong);
+    public String tinhLuong(@ModelAttribute TinhLuong tinhLuong, @RequestParam("cccd") String cccd, Model model) {
+        try {
+            // Set NhanVien object using CCCD
+            NhanVien nhanVien = nhanVienRepository.findByCCCD(cccd).orElse(null);
+            if (nhanVien == null) {
+                throw new RuntimeException("Không tìm thấy nhân viên với CCCD: " + cccd);
+            }
+            tinhLuong.setNhanVien(nhanVien);
+            tinhLuong.setNgayTinhLuong(new Date());
+            TinhLuong result = tinhLuongService.tinhLuong(tinhLuong);
             model.addAttribute("result", result);
-            return "tinhluong/result";
-        } else {
-            model.addAttribute("error", "NhanVien not found");
-            List<NhanVien> listOfEmployees = nhanVienService.getAllNhanViens(); // Sửa đổi này để lấy lại danh sách nhân viên
-            model.addAttribute("listOfEmployees", listOfEmployees); // Thêm danh sách nhân viên vào model
+            return "redirect:/tinhluong";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
             return "tinhluong/index";
         }
     }
