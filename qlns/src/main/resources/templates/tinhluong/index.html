@@ -16,82 +16,108 @@
             </ol>
         </nav>
     </div>
+    <!-- Modal Tính Lương-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form class="row g-3" th:action="@{/tinhluong/tinh}" th:object="${tinhLuong}" method="post">
+                                <div class="col-md-4">
+                                    <label for="cccd" class="form-label">Tên Nhân Viên:</label>
+                                    <select id="cccd" name="cccd" class="form-select" required>
+                                        <option value="">Chọn Tên Nhân Viên</option>
+                                        <!-- Thymeleaf iteration for employee names -->
+                                        <option th:each="nhanVien : ${listOfEmployees}" th:value="${nhanVien.CCCD}" th:text="${nhanVien.tenNV}"></option>
+                                    </select>
+                                </div>
 
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <form class="row g-3" action="#" th:action="@{/tinhluong/tinh}" th:object="${tinhLuong}" method="post">
-                            <div class="col-md-4">
-                                <label for="nhanVienId" class="form-label">Tên Nhân Viên:</label>
-                                <select id="nhanVienId" name="nhanVienId" class="form-select" required>
-                                    <option value="">Chọn Tên Nhân Viên</option>
-                                    <!-- Thymeleaf iteration for employee names -->
-                                    <option th:each="nhanVien : ${listOfEmployees}" th:value="${nhanVien.id}" th:text="${nhanVien.tenNV}"></option>
-                                </select>
-                            </div>
+                                <div class="col-md-3">
+                                    <label for="luongThang" class="form-label">Lương Tháng:</label>
+                                    <input type="text" id="luongThang" th:field="*{luongThang}" class="form-control" required />
+                                </div>
 
-                            <div class="col-md-3">
-                                <label for="luongThang" class="form-label">Lương Tháng:</label>
-                                <input type="text" id="luongThang" th:field="*{luongThang}" class="form-control" required />
-                            </div>
+                                <div class="col-md-3">
+                                    <label for="ngayCong" class="form-label">Ngày Công:</label>
+                                    <input type="text" id="ngayCong" th:field="*{ngayCong}" class="form-control" required />
+                                </div>
 
-                            <div class="col-md-3">
-                                <label for="ngayCong" class="form-label">Ngày Công:</label>
-                                <input type="text" id="ngayCong" th:field="*{ngayCong}" class="form-control" required />
-                            </div>
+                                <div class="col-md-2">
+                                    <label for="ngayNghi" class="form-label">Ngày Nghỉ:</label>
+                                    <input type="text" id="ngayNghi" th:field="*{ngayNghi}" class="form-control" />
+                                </div>
 
-                            <div class="col-md-2">
-                                <label for="ngayNghi" class="form-label">Ngày Nghỉ:</label>
-                                <input type="text" id="ngayNghi" th:field="*{ngayNghi}" class="form-control" />
-                            </div>
+                                <div class="col-md-3">
+                                    <label for="phuCap" class="form-label">Phụ Cấp:</label>
+                                    <input type="text" id="phuCap" th:field="*{phuCap}" class="form-control" />
+                                </div>
 
-                            <div class="col-md-3">
-                                <label for="phuCap" class="form-label">Phụ Cấp:</label>
-                                <input type="text" id="phuCap" th:field="*{phuCap}" class="form-control" />
-                            </div>
+                                <div class="col-md-3">
+                                    <label for="tamUng" class="form-label">Tạm Ứng:</label>
+                                    <input type="text" id="tamUng" th:field="*{tamUng}" class="form-control" />
+                                </div>
 
-                            <div class="col-md-3">
-                                <label for="tamUng" class="form-label">Tạm Ứng:</label>
-                                <input type="text" id="tamUng" th:field="*{tamUng}" class="form-control" />
-                            </div>
+                                <div class="col-md-12">
+                                    <label for="moTa" class="form-label">Mô Tả:</label>
+                                    <textarea id="moTa" th:field="*{moTa}" class="form-control"></textarea>
+                                </div>
 
-                            <div class="col-md-12">
-                                <label for="moTa" class="form-label">Mô Tả:</label>
-                                <textarea id="moTa" th:field="*{moTa}" class="form-control"></textarea>
-                            </div>
-                            <div class="">
-                                <button type="submit" class="btn btn-primary">Tính Lương</button>
-                            </div>
-                        </form>
-
+                                <div class="">
+                                    <button type="submit" class="btn btn-primary">Tính Lương</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <table class="table-danger">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nhân Viên</th>
-                        <th scope="col">Ngày Công</th>
-                        <th scope="col">Ngày Nghỉ</th>
-                        <th scope="col">Phụ Cấp</th>
-                        <th scope="col">Tạm Ứng</th>
-                        <th scope="col">Thực Lãnh</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-
-                    </tr>
-                    </tbody>
-                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Form for calculating salary -->
+    <div class="card">
+        <div class="card-body">
+            <!-- Button Tính Lương modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Tính Lương
+            </button>
+            <div class="row">
+                <!-- Table to display processed employees -->
+                <div class="col-lg-12 mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nhân Viên</th>
+                            <th>Ngày Công</th>
+                            <th>Ngày Nghỉ</th>
+                            <th>Phụ Cấp</th>
+                            <th>Tạm Ứng</th>
+                            <th>Thực Lãnh</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Thymeleaf iteration for processed employees -->
+                        <tr th:each="luong : ${processedEmployees}">
+                            <td th:text="${luong.id}"></td>
+                            <td th:text="${luong.nhanVien.tenNV}"></td>
+                            <td th:text="${luong.ngayCong}"></td>
+                            <td th:text="${luong.ngayNghi}"></td>
+                            <td th:text="${luong.phuCap}"></td>
+                            <td th:text="${luong.tamUng}"></td>
+                            <td th:text="${luong.thucLanh}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
-
-
+    <!-- Error message display -->
     <div th:if="${error}" class="mt-3">
         <p class="alert alert-danger" th:text="${error}"></p>
     </div>
