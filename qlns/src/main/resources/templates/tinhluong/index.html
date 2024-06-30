@@ -84,6 +84,10 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Tính Lương
             </button>
+            <!-- Button Xuất Excel -->
+            <button id="exportExcelBtn" class="btn btn-success ms-3">
+                <i class="fas fa-file-excel"></i> Xuất Excel
+            </button>
             <div class="row">
                 <!-- Table to display processed employees -->
                 <div class="col-lg-12 mt-3">
@@ -122,6 +126,8 @@
         <p class="alert alert-danger" th:text="${error}"></p>
     </div>
 </section>
+
+
 
 </body>
 </html>

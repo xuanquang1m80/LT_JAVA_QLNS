@@ -51,3 +51,15 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
+ $(document).ready(function() {
+     $('#exportExcelBtn').click(function() {
+         // Lấy dữ liệu từ bảng HTML
+         var table = document.getElementById("example");
+         var data = XLSX.utils.table_to_book(table);
+
+         // Tạo file Excel và tải xuống
+         XLSX.writeFile(data, "DanhSachBangTinhLuong.xlsx");
+     });
+ });
+
+
