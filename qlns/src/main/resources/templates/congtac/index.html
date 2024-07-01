@@ -54,6 +54,10 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCongTacModal">
                 Thêm Công Tác
             </button>
+            <!-- Button xuất file Excel -->
+            <a href="/congtac/export" class="btn btn-success">
+                Xuất file Excel
+            </a>
             <!-- Default Table -->
             <table class="table">
                 <thead>
@@ -80,7 +84,7 @@
                     <td>
                         <!-- Button chỉnh sửa công tác modal -->
                         <button type="button"
-                                 class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editCongTacModal"
+                                class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editCongTacModal"
                                 th:attr="data-id=${congTac.id},
                                         data-ngayBD=${#dates.format(congTac.ngayBD, 'yyyy-MM-dd')},
                                         data-ngayKT=${#dates.format(congTac.ngayKT, 'yyyy-MM-dd')},

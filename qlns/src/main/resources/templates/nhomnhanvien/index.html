@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+  <title>Quản lý Nhóm Nhân Viên</title>
+  <script>
+    function confirmDelete(event) {
+        if (!confirm("Bạn có chắc chắn muốn xóa không?")) {
+            event.preventDefault();
+        }
+    }
+  </script>
+  </script>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+<div class="pagetitle">
+<h1>Nhóm Nhân Viên</h1>
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item">Nhóm Nhân Viên</li>
+  </ol>
+</nav>
+</div>
+<div class="card">
+<div class="card-body">
+  <h5 class="card-title">Danh Sách Nhóm Nhân Viên</h5>
+  <!-- Button thêm nhóm nhân viên modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+    Thêm Nhóm Nhân Viên
+  </button>
+  <!-- Button xuất file Excel -->
+  <a href="/nhomnhanvien/export" class="btn btn-success">
+    Xuất File Excel
+  </a>
+  <!-- Default Table -->
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Tên Nhóm</th>
+      <th scope="col">Mô Tả</th>
+      <th scope="col">Chức năng</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="nhomNhanVien : ${nhomNhanViens}">
+      <th scope="row" th:text="${nhomNhanVien.id}">1</th>
+      <td th:text="${nhomNhanVien.tenNhom}">Nhóm A</td>
+      <td th:text="${nhomNhanVien.moTa}">Mô tả nhóm A</td>
+      <td>
+        <!-- Button chỉnh sửa nhóm nhân viên modal -->
+        <button type="button" class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editModal" th:attr="data-id=${nhomNhanVien.id}, data-tenNhom=${nhomNhanVien.tenNhom}, data-moTa=${nhomNhanVien.moTa}">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+        <!-- Button xóa nhóm nhân viên -->
+        <a th:href="@{'/nhomnhanvien/delete/' + ${nhomNhanVien.id}}" class="btn btn-outline-danger" onclick="confirmDelete(event)">
+          <i class="bi bi-trash3"></i>
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!-- End Default Table Example -->
+</div>
+</div>
+
+<!-- Modal thêm nhóm nhân viên -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="addModalLabel">Thêm Nhóm Nhân Viên Mới</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form th:action="@{/nhomnhanvien}" method="post">
+        <div class="row mb-3">
+          <label for="inputTextAdd" class="col-sm-5 col-form-label">Tên Nhóm</label>
+          <div class="col-sm-15">
+            <input type="text" id="inputTextAdd" class="form-control" name="tenNhom" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="inputDescriptionAdd" class="col-sm-5 col-form-label">Mô Tả</label>
+          <div class="col-sm-15">
+            <textarea id="inputDescriptionAdd" class="form-control" name="moTa" style="height: 100px"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal chỉnh sửa nhóm nhân viên -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="editModalLabel">Chỉnh sửa Nhóm Nhân Viên</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form th:action="@{/nhomnhanvien/update}" method="post">
+        <input type="hidden" id="editId" name="id">
+        <div class="row mb-3">
+          <label for="inputTextEdit" class="col-sm-5 col-form-label">Tên Nhóm</label>
+          <div class="col-sm-15">
+            <input type="text" id="inputTextEdit" class="form-control" name="tenNhom" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="inputDescriptionEdit" class="col-sm-5 col-form-label">Mô Tả</label>
+          <div class="col-sm-15">
+            <textarea id="inputDescriptionEdit" class="form-control" name="moTa" style="height: 100px"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+</body>
+</html>
