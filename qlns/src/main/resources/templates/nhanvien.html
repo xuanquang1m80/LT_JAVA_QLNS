@@ -32,11 +32,14 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Danh Sách Nhân Viên</h5>
-            <a class="btn btn-success" th:href="@{/nhanvien/export}">Xuất Excel</a>
+            <!-- Button Xuất Excel -->
+            <button id="exportExcelBtn" class="btn btn-success ms-3">
+                <i class="fas fa-file-excel"></i> Xuất Excel
+            </button>
             <!-- Button thêm nhân viên modal -->
             <a href="/nhanvien/add" class="btn btn-primary">Thêm Nhân Viên</a>
             <!-- Default Table -->
-            <table class="table">
+            <table id="example" class="table">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -110,16 +113,7 @@
         </div>
     </div>
 
-    <!-- Script to handle error message modal display -->
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        var errorMessage = /*[[${errorMessage}]]*/ null;
-        if (errorMessage) {
-            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
-            errorModal.show(); // Show the error modal
-        }
-        /*]]>*/
-    </script>
+
 
 </section>
 
