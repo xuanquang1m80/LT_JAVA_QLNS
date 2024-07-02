@@ -99,10 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                     .catch(error => console.error('Error fetching data:', error));
             });
-         // Tạo file Excel và tải xuống
-         XLSX.writeFile(data, "DanhSachBangTinhLuong.xlsx");
-     });
- });
 
 document.addEventListener('DOMContentLoaded', function() {
     const detailModal = document.getElementById('ChiTietTinhLuong');
