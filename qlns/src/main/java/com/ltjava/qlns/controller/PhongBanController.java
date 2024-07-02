@@ -3,49 +3,41 @@ package com.ltjava.qlns.controller;
 import com.ltjava.qlns.model.PhongBan;
 import com.ltjava.qlns.service.PhongBanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/phongbans")
+@Controller
+@RequestMapping("/phongban")
 public class PhongBanController {
 
-    private final PhongBanService phongBanService;
-
     @Autowired
-    public PhongBanController(PhongBanService phongBanService) {
-        this.phongBanService = phongBanService;
-    }
+    private PhongBanService phongBanService;
 
     @GetMapping
-    public List<PhongBan> getAllPhongBans() {
-        return phongBanService.getAllPhongBans();
+    public String viewPhongBans(Model model) {
+        List<PhongBan> phongBans = phongBanService.getAllPhongBans();
+        model.addAttribute("phongBans", phongBans);
+        return "phongban/index";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PhongBan> getPhongBanById(@PathVariable Long id) {
-        PhongBan phongBan = phongBanService.getPhongBanById(id);
-        return ResponseEntity.ok(phongBan);
+    @PostMapping
+    public String addPhongBan(@ModelAttribute PhongBan phongBan) {
+        phongBanService.createPhongBan(phongBan);
+        return "redirect:/phongban";
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<PhongBan> createPhongBan(@RequestBody PhongBan phongBan) {
-        PhongBan createdPhongBan = phongBanService.createPhongBan(phongBan);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPhongBan);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<PhongBan> updatePhongBan(@PathVariable Long id, @RequestBody PhongBan phongBan) {
-        PhongBan updatedPhongBan = phongBanService.updatePhongBan(id, phongBan);
-        return ResponseEntity.ok(updatedPhongBan);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePhongBan(@PathVariable Long id) {
+    @GetMapping("/delete/{id}")
+    public String deletePhongBan(@PathVariable("id") Long id) {
         phongBanService.deletePhongBan(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/phongban";
+    }
+
+    @PostMapping("/update")
+    public String updatePhongBan(@ModelAttribute PhongBan phongBan) {
+        phongBanService.updatePhongBan(phongBan.getId(), phongBan);
+        return "redirect:/phongban";
     }
 }

@@ -3,55 +3,50 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <title>Quản lý Chức Vụ</title>
+    <title>Quản lý Trình Độ</title>
 </head>
 <body>
 <section layout:fragment="content" class="container mt-5">
     <div class="pagetitle">
-        <h1>Chức Vụ</h1>
+        <h1>Trình Độ</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
                 <li class="breadcrumb-item">Tables</li>
-                <li class="breadcrumb-item active">Chức Vụ</li>
+                <li class="breadcrumb-item active">Trình Độ</li>
             </ol>
         </nav>
     </div>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Danh Sách Chức Vụ</h5>
-            <!-- Button thêm chức vụ modal -->
+            <h5 class="card-title">Danh Sách Trình Độ</h5>
+            <!-- Button thêm trình độ modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                Thêm Chức Vụ
+                Thêm Trình Độ
             </button>
             <!-- Default Table -->
             <table class="table">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Tên Chức Vụ</th>
-                    <th scope="col">Lương</th>
+                    <th scope="col">Tên Trình Độ</th>
                     <th scope="col">Mô Tả</th>
-                    <th scope="col">Ngày Tạo</th>
-                    <th scope="col">Ngày Sửa</th>
                     <th scope="col">Chức năng</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="chucVu : ${chucVus}">
-                    <th scope="row" th:text="${chucVu.id}"></th>
-                    <td th:text="${chucVu.tenChucVu}"></td>
-                    <td th:text="${chucVu.luong}"></td>
-                    <td th:text="${chucVu.moTa}"></td>
-                    <td th:text="${chucVu.ngayTao}"></td>
-                    <td th:text="${chucVu.ngaySua}"></td>
+                <tr th:each="trinhDo : ${trinhDos}">
+                    <th scope="row" th:text="${trinhDo.id}"></th>
+                    <td th:text="${trinhDo.tenTD}"></td>
+                    <td th:text="${trinhDo.moTa}"></td>
                     <td>
-                        <!-- Button chỉnh sửa chức vụ modal -->
-                        <button type="button" class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editModal" th:attr="data-id=${chucVu.id}, data-tenChucVu=${chucVu.tenChucVu}, data-luong=${chucVu.luong}, data-moTa=${chucVu.moTa}">
+                        <!-- Button chỉnh sửa trình độ modal -->
+                        <button type="button" class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editModal"
+                                th:attr="data-id=${trinhDo.id}, data-tenTD=${trinhDo.tenTD}, data-moTa=${trinhDo.moTa}">
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <!-- Button xóa chức vụ -->
-                        <a th:href="@{'/chucvu/delete/' + ${chucVu.id}}" class="btn btn-outline-danger">
+                        <!-- Button xóa trình độ -->
+                        <a th:href="@{'/trinhdo/delete/' + ${trinhDo.id}}" class="btn btn-outline-danger">
                             <i class="bi bi-trash3"></i>
                         </a>
                     </td>
@@ -62,26 +57,20 @@
         </div>
     </div>
 
-    <!-- Modal thêm chức vụ -->
+    <!-- Modal thêm trình độ -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Thêm Chức Vụ Mới</h5>
+                    <h5 class="modal-title" id="addModalLabel">Thêm Trình Độ Mới</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/chucvu}" method="post">
+                    <form th:action="@{/trinhdo}" method="post">
                         <div class="row mb-3">
-                            <label for="inputTenChucVuAdd" class="col-sm-5 col-form-label">Tên Chức Vụ</label>
+                            <label for="inputTenTDAdd" class="col-sm-5 col-form-label">Tên Trình Độ</label>
                             <div class="col-sm-15">
-                                <input type="text" id="inputTenChucVuAdd" class="form-control" name="tenChucVu">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputLuongAdd" class="col-sm-5 col-form-label">Lương</label>
-                            <div class="col-sm-15">
-                                <input type="number" id="inputLuongAdd" class="form-control" name="luong">
+                                <input type="text" id="inputTenTDAdd" class="form-control" name="tenTD">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -90,7 +79,6 @@
                                 <textarea id="inputMoTaAdd" class="form-control" name="moTa" style="height: 100px"></textarea>
                             </div>
                         </div>
-                        <input type="hidden" name="ngayTao" th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd HH:mm:ss')}">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                             <button type="submit" class="btn btn-primary">Lưu</button>
@@ -101,27 +89,21 @@
         </div>
     </div>
 
-    <!-- Modal sửa chức vụ -->
+    <!-- Modal sửa trình độ -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Chức Vụ</h5>
+                    <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Trình Độ</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/chucvu/update}" method="post">
-                        <input type="hidden" id="editId" name="id">
+                    <form th:action="@{/trinhdo/update}" method="post">
+                        <input type="hidden" id="editId" name="id"> <!-- Hidden input to hold the ID -->
                         <div class="row mb-3">
-                            <label for="inputTenChucVuEdit" class="col-sm-5 col-form-label">Tên Chức Vụ</label>
+                            <label for="inputTenTDEdit" class="col-sm-5 col-form-label">Tên Trình Độ</label>
                             <div class="col-sm-15">
-                                <input type="text" id="inputTenChucVuEdit" class="form-control" name="tenChucVu">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputLuongEdit" class="col-sm-5 col-form-label">Lương</label>
-                            <div class="col-sm-15">
-                                <input type="number" id="inputLuongEdit" class="form-control" name="luong">
+                                <input type="text" id="inputTenTDEdit" class="form-control" name="tenTD">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -130,17 +112,31 @@
                                 <textarea id="inputMoTaEdit" class="form-control" name="moTa" style="height: 100px"></textarea>
                             </div>
                         </div>
-                        <input type="hidden" name="ngaySua" th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd HH:mm:ss')}">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <button type="submit" class="btn btn-primary">Lưu</button>
+                            <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editModal = document.getElementById('editModal');
+        const editButtons = document.querySelectorAll('.editButton');
+        editButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                const tenTD = button.getAttribute('data-tenTD');
+                const moTa = button.getAttribute('data-moTa');
+                document.getElementById('editId').value = id;
+                document.getElementById('inputTenTDEdit').value = tenTD;
+                document.getElementById('inputMoTaEdit').value = moTa;
+            });
+        });
+    });
+</script>
 </body>
 </html>

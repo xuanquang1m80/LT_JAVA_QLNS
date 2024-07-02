@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.Set;
@@ -32,6 +34,7 @@ public class NhanVien {
     @Pattern(regexp = "^[0-9]*$", message = "CCCD là bắt buộc")
     String CCCD;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date ngaySinh;
     String hoKhau;
 
@@ -40,6 +43,8 @@ public class NhanVien {
     @Pattern(regexp = "^[0-9]*$", message = "Số điện thoại phải là số")
     String SDT;
 
+    @Transient
+    MultipartFile imageFile;
     String image;
 
     @Enumerated(EnumType.STRING)

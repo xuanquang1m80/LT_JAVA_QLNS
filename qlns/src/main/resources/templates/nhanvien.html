@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Quản lý Nhân Viên</title>
+    <!-- Thêm các thư viện CSS và JS cần thiết -->
+    <link rel="stylesheet" th:href="@{assets/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{assets/css/style.css}">
+    <script th:src="@{assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- CSS để căn giữa modal -->
+    <style>
+        .modal-dialog-centered {
+            display: flex;
+            align-items: center;
+            min-height: calc(100vh - 50px); /* 50px là chiều cao của navbar, có thể thay đổi theo thiết kế */
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+    <div class="pagetitle">
+        <h1>Nhân Viên</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                <li class="breadcrumb-item active">Nhân Viên</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Danh Sách Nhân Viên</h5>
+            <!-- Button Xuất Excel -->
+            <button id="exportExcelBtn" class="btn btn-success ms-3">
+                <i class="fas fa-file-excel"></i> Xuất Excel
+            </button>
+            <!-- Button thêm nhân viên modal -->
+            <a href="/nhanvien/add" class="btn btn-primary">Thêm Nhân Viên</a>
+            <!-- Default Table -->
+            <table id="example" class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Tên Nhân Viên</th>
+                    <!--                    <th scope="col">CCCD</th>-->
+                    <!--                    <th scope="col">Ngày Sinh</th>-->
+                    <!--                    <th scope="col">Hộ Khẩu</th>-->
+                    <!--                    <th scope="col">Số Điện Thoại</th>-->
+                    <th scope="col">Giới Tính</th>
+                    <th scope="col">Loại Nhân Viên</th>
+                    <th scope="col">Phòng Ban</th>
+                    <!--                    <th scope="col">Bằng Cấp</th>-->
+                    <th scope="col">Chức Vụ</th>
+                    <!--                    <th scope="col">Chuyên Môn</th>-->
+                    <th scope="col">Trạng Thái</th>
+                    <!--                    <th scope="col">Trình Độ</th>-->
+                    <th scope="col">Chức năng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="nhanVien : ${nhanViens}">
+                    <th scope="row" th:text="${nhanVien.id}"></th>
+                    <td th:text="${nhanVien.tenNV}"></td>
+                    <!--                    <td th:text="${nhanVien.CCCD}"></td>-->
+                    <!--                    <td th:text="${#dates.format(nhanVien.ngaySinh, 'dd/MM/yyyy')}"></td>-->
+                    <!--                    <td th:text="${nhanVien.hoKhau}"></td>-->
+                    <!--                    <td th:text="${nhanVien.SDT}"></td>-->
+                    <td th:text="${nhanVien.gioiTinh}"></td>
+                    <td th:text="${nhanVien.loaiNhanVien.tenLoai}"></td>
+                    <td th:text="${nhanVien.phongBan.tenPB}"></td>
+                    <!--                    <td th:text="${nhanVien.bangCap.tenBC}"></td>-->
+                    <td th:text="${nhanVien.chucVu.tenChucVu}"></td>
+                    <!--                    <td th:text="${nhanVien.chuyenMon.tenCM}"></td>-->
+                    <td th:text="${nhanVien.trangThai.tenTT}"></td>
+                    <!--                    <td th:text="${nhanVien.trinhDo.tenTD}"></td>-->
+                    <td>
+                        <!-- Link to edit employee -->
+                        <a th:href="@{'/nhanvien/edit/' + ${nhanVien.id}}" class="btn btn-outline-primary">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <!-- Button xóa nhân viên -->
+                        <a th:href="@{'/nhanvien/delete/' + ${nhanVien.id}}" class="btn btn-outline-danger">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+                        <a th:href="@{'/nhanvien/detail/' + ${nhanVien.id}}" class="btn btn-info">
+                            Chi Tiết
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- End Default Table Example -->
+        </div>
+    </div>
+
+    <!-- Modal for Error Message -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Thông Báo Lỗi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+
+</body>
+</html>

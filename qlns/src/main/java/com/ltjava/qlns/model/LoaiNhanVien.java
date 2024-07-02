@@ -16,11 +16,11 @@ public class LoaiNhanVien {
     private Long id;
 
     @NotBlank(message = "Tên loại nhân viên không được trống")
-    private String tenLoai;
+private String tenLoai;
 
-    private String mota;
+private String mota;
 
-    @OneToMany(mappedBy = "loaiNhanVien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<NhanVien> nhanViens;
+@OneToMany(mappedBy = "loaiNhanVien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+private Set<NhanVien> nhanViens;
 
 }
