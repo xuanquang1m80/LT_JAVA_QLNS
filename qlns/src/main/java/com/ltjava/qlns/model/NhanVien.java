@@ -9,8 +9,8 @@ import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.Set;
@@ -43,6 +43,8 @@ public class NhanVien {
     @Pattern(regexp = "^[0-9]*$", message = "Số điện thoại phải là số")
     String SDT;
 
+    @Transient
+    MultipartFile imageFile;
     String image;
 
     @Enumerated(EnumType.STRING)

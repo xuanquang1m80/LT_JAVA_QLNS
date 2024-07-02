@@ -43,13 +43,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/assets/**","/css/**", "/js/**","/vendor/**","/oauth/**", "/error")
-                        .permitAll() // Cho phép truy cập không cần xác thực.
+                                .requestMatchers("/assets/**","/css/**", "/js/**","/vendor/**","/oauth/**", "/error","/Anh/**")
+                                .permitAll() // Cho phép truy cập không cần xác thực.
 //                        .requestMatchers("/home")
 //                        .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
-                        /*.requestMatchers("/api/**")*/
-                        //.permitAll() // API mở cho mọi người dùng.
-                        .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
+                                /*.requestMatchers("/api/**")*/
+                                //.permitAll() // API mở cho mọi người dùng.
+                                .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
                 )
 
 
