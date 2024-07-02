@@ -29,4 +29,8 @@ public class CongTacService {
     public void deleteCongTac(Long id) {
         congtacRepository.deleteById(id);
     }
+
+    public long countLichCT(){
+        return congtacRepository.count();
+    }
 }

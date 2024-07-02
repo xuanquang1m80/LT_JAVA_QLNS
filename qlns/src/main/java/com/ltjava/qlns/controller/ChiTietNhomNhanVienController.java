@@ -42,7 +42,7 @@ public class ChiTietNhomNhanVienController {
     @GetMapping
     public String getAllNhomNhanViens(Model model) {
         model.addAttribute("chiTietNhomNhanViens", chiTietNhomNhanVienService.findAll());
-        model.addAttribute("nhanViens", nhanVienService.getdAllNhanVien());
+        model.addAttribute("nhanViens", nhanVienService.findAll());
         model.addAttribute("nhomNhanViens", nhomNhanVienService.findAll());
         return "chitietnhomnhanvien/index";
     }
@@ -102,7 +102,7 @@ public class ChiTietNhomNhanVienController {
     public String updateNhomNhanVien(@Valid ChiTietNhomNhanVien chiTietNhomNhanVien, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("chiTietNhomNhanViens", chiTietNhomNhanVienService.findAll());
-            model.addAttribute("nhanViens", nhanVienService.getdAllNhanVien());
+            model.addAttribute("nhanViens", nhanVienService.findAll());
             model.addAttribute("nhomNhanViens", nhomNhanVienService.findAll());
 
 

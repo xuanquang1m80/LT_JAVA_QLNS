@@ -4,10 +4,7 @@ package com.ltjava.qlns.controller;
 import com.ltjava.qlns.dto.ChucVuDTO;
 import com.ltjava.qlns.dto.PhongBanDTO;
 import com.ltjava.qlns.model.PhongBan;
-import com.ltjava.qlns.service.AccountService;
-import com.ltjava.qlns.service.ChucVuService;
-import com.ltjava.qlns.service.NhanVienService;
-import com.ltjava.qlns.service.PhongBanService;
+import com.ltjava.qlns.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +32,9 @@ public class ApiController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private CongTacService congTacService;
+
 
     @GetMapping("/phongban")
     public List<PhongBanDTO> getAllPhongBan() {
@@ -56,6 +56,12 @@ public class ApiController {
     @GetMapping("/totalaccount")
     public ResponseEntity<Long> getAccoutnsTotal() {
         long totalAccount = accountService.countAccounts();
+        return ResponseEntity.ok(totalAccount);
+    }
+
+    @GetMapping("/totalcongtac")
+    public ResponseEntity<Long> getAllCongtac() {
+        long totalAccount = congTacService.countLichCT();
         return ResponseEntity.ok(totalAccount);
     }
 

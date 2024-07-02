@@ -88,14 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
               })
               .catch(error => console.error('Error fetching data:', error));
       });
-/// Lich Cong Tac
+// Lich Cong Tac
       document.addEventListener("DOMContentLoaded", () => {
                 // Gọi API để lấy số lượng  từ server
-                fetch('/api/totalaccount')
+                fetch('/api/totalcongtac')
                     .then(response => response.json())
-                    .then(totalAccount => {
+                    .then(totalCongtac => {
                         // Cập nhật số lượng giao diện
-                        document.getElementById('totalAccount').innerText = totalAccount;
+                        document.getElementById('totalCongtac').innerText = totalCongtac;
                     })
                     .catch(error => console.error('Error fetching data:', error));
             });

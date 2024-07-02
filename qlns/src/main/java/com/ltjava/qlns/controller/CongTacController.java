@@ -170,7 +170,7 @@ public class CongTacController {
     @GetMapping
     public String viewCongTac(Model model) {
         List<CongTac> congTacs = congTacService.getAllCongTac();
-        List<NhanVien> nhanViens = nhanVienService.getdAllNhanVien();
+        List<NhanVien> nhanViens = nhanVienService.getAllNhanViens();
         model.addAttribute("congTacs", congTacs);
         model.addAttribute("nhanViens", nhanViens);
         return "congtac/index";
@@ -256,7 +256,7 @@ public class CongTacController {
     public String addCongTac(@Valid CongTac congTac, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("chuyenMons", congTacService.getAllCongTac());
-            model.addAttribute("nhanViens",nhanVienService.getdAllNhanVien());
+            model.addAttribute("nhanViens",nhanVienService.getAllNhanViens());
             return "congtac/index";
         }
         congTacService.saveCongTac(congTac);
@@ -268,7 +268,7 @@ public class CongTacController {
     public String updateCongTac(@Valid CongTac congTac, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("congTacs", congTacService.getAllCongTac());
-            model.addAttribute("nhanViens",nhanVienService.getdAllNhanVien());
+            model.addAttribute("nhanViens",nhanVienService.getAllNhanViens());
 
             return "congtac/index";
         }
