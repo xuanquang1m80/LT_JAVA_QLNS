@@ -5,10 +5,18 @@ import com.ltjava.qlns.model.LoaiNhanVien;
 import com.ltjava.qlns.model.NhanVien;
 import com.ltjava.qlns.model.PhongBan;
 import com.ltjava.qlns.repository.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -97,5 +105,35 @@ public class NhanVienService {
         return nhanVienRepository.count();
     }
 
+
+    public ByteArrayInputStream exportNhanVienListToExcel(List<NhanVien> nhanVienList) throws IOException {
+        String[] columns = {"ID", "Tên", "CCCD", "Ngày Sinh", "Hộ Khẩu", "Số Điện Thoại"};
+        try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            Sheet sheet = workbook.createSheet("NhanVien");
+
+            // Tạo header row
+            Row headerRow = sheet.createRow(0);
+            for (int col = 0; col < columns.length; col++) {
+                Cell cell = headerRow.createCell(col);
+                cell.setCellValue(columns[col]);
+            }
+
+            // Tạo các hàng dữ liệu
+            int rowIdx = 1;
+            for (NhanVien nhanVien : nhanVienList) {
+                Row row = sheet.createRow(rowIdx++);
+
+                row.createCell(0).setCellValue(nhanVien.getId());
+                row.createCell(1).setCellValue(nhanVien.getTenNV());
+                row.createCell(2).setCellValue(nhanVien.getCCCD());
+                row.createCell(3).setCellValue(nhanVien.getNgaySinh().toString());
+                row.createCell(4).setCellValue(nhanVien.getHoKhau());
+                row.createCell(5).setCellValue(nhanVien.getSDT());
+            }
+
+            workbook.write(out);
+            return new ByteArrayInputStream(out.toByteArray());
+        }
+    }
 
 }

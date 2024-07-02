@@ -176,40 +176,6 @@ public class CongTacController {
         return "congtac/index";
     }
 
-//    @GetMapping("congtac/create")
-//    public String showCreateForm(Model model) {
-//        CongTac congTac = new CongTac();
-//        List<NhanVien> nhanVienList = nhanVienService.getAllNhanVien();
-//        model.addAttribute("congTac", congTac);
-//        model.addAttribute("nhanVienList", nhanVienList);
-//        return "congtac/create";
-//    }
-
-//    @PostMapping("/save")
-//    public String saveCongTac(@Validated @ModelAttribute CongTac congTac) {
-//        congTacService.saveCongTac(congTac);
-//        return "redirect:/congtac";
-//    }
-
-//    @GetMapping("/edit/{id}")
-//    public String showEditForm(@PathVariable Long id, Model model) {
-//        Optional<CongTac> congTac = congTacService.getCongTacById(id);
-//        List<NhanVien> nhanVienList = nhanVienService.getAllNhanVien();
-//        if (congTac.isPresent()) {
-//            model.addAttribute("congTac", congTac.get());
-//            model.addAttribute("nhanVienList", nhanVienList);
-//            return "congtac/edit";
-//        } else {
-//            return "redirect:/congtac";
-//        }
-//    }
-
-//    @PostMapping("/update")
-//    public String updateCongTac(@Validated @ModelAttribute CongTac congTac) {
-//        congTacService.saveCongTac(congTac);
-//        return "redirect:/congtac";
-//    }
-
     @GetMapping("/export")
     public ResponseEntity<StreamingResponseBody> exportToExcel() {
         List<CongTac> congTacs = congTacService.getAllCongTac();

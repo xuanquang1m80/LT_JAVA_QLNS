@@ -4,6 +4,8 @@ package com.ltjava.qlns.model;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,7 +13,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TinhLuong {
 
@@ -29,6 +32,7 @@ public class TinhLuong {
     Date ngayTinhLuong;
 
     String moTa;
+
     @ManyToOne
     @JoinColumn(name = "IDNhanVien")
     NhanVien nhanVien;

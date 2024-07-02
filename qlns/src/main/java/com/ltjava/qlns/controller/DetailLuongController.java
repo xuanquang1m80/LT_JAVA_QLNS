@@ -25,11 +25,11 @@ public class DetailLuongController {
     @Autowired
     private NhanVienRepository nhanVienRepository;
 
-    @GetMapping("/")
+    @GetMapping
     public String getTinhLuongByCurrentUser(Model model) {
         List<TinhLuong> processedEmployees = tinhLuongService.getTinhLuongByCurrentUser();
         model.addAttribute("processedEmployees", processedEmployees);
-        return "tinhluong/index";
+        return "tinhluong/detailluong";
     }
 
 }

@@ -67,7 +67,8 @@ public class TinhLuongServiceImpl implements TinhLuongService {
         Account account = accountRepository.getByUsername(currentUsername);
 
         if (account != null && account.getNhanVien() != null) {
-            return tinhLuongRepository.findByNhanVienId(account.getNhanVien().getId());
+            Long id = account.getNhanVien().getId();
+            return tinhLuongRepository.findByNhanVienId(id);
         } else {
             return new ArrayList<>();
         }

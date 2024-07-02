@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" >
 
 
+
     <!-- Template Main CSS File -->
     <link type="text/css" th:href="@{/assets/css/style.css}" rel="stylesheet">
     <!--<link type="text/css" th:href="@{/assets/vendor/simple-datatables/style.css">-->
@@ -44,18 +45,12 @@
     </div><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
-
-            <li class="nav-item d-block d-lg-none">
-                <a class="nav-link nav-icon search-bar-toggle " href="#">
-                    <i class="bi bi-search"></i>
-                </a>
-            </li><!-- End Search Icon-->
-
-            <li class="nav-item dropdown pe-3">
-            </li><!-- End Profile Nav -->
-
-        </ul>
+        <li class="nav-item dropdown pe-3">
+            <!-- Example single danger button -->
+            <div class="btn-group">
+                <a th:href="@{/logout}" type="button" class="btn btn-info" >Đăng Xuất</a>
+            </div>
+        </li>
     </nav><!-- End Icons Navigation -->
 
 </header>
@@ -64,87 +59,47 @@
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item">
-            <a class="nav-link ">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
+            <a class="nav-link" th:href="@{/thongke}">
                 <i class="bi bi-grid"></i>
                 <span>Tổng Quan</span>
             </a>
         </li><!-- Kết thúc Nav Tổng Quan -->
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
             <a class="nav-link collapsed" th:href="@{/bangcap}">
                 <i class="bi bi-cash-stack"></i><span>Bằng Cấp</span>
             </a>
         </li><!-- End Bằng Cấp Nav -->
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
             <a class="nav-link collapsed" th:href="@{/chucvu}">
                 <i class="bi bi-cash-stack"></i><span>Chức Vụ</span>
             </a>
         </li><!-- End Chức Vụ Nav -->
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
             <a class="nav-link collapsed" th:href="@{/chuyenmon}">
                 <i class="bi bi-cash-stack"></i><span>Chuyên Môn</span>
             </a>
         </li><!-- End Chuyên Môn Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/congtac}">
-                <i class="bi bi-cash-stack"></i><span>Công Tác</span>
-            </a>
-        </li><!-- End Cong Tac Nav -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/nhomnhanvien}">
-                <i class="bi bi-cash-stack"></i><span>Nhóm Nhân Viên</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" th:href="@{/chitietnhomnhanvien}">
-                <i class="bi bi-cash-stack"></i><span>Chi Tiết Nhóm Nhân Vin </span>
-            </a>
-        </li>
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed " th:href="@{/tinhluong}">
-                <i class="bi bi-grid"></i>
-                <span>Nhân Viên</span>
-            </a>
-        </li><!-- Kết thúc Nav Nhân Viên -->
-        <li class="nav-item">
-            <a class="nav-link ">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
+            <a class="nav-link collapsed" th:href="@{/phongban}">
                 <i class="bi bi-grid"></i>
                 <span>Phòng Ban</span>
             </a>
         </li><!-- Kết thúc Nav Phòng Ban -->
-        <li class="nav-item">
-            <a class="nav-link ">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
+            <a class="nav-link collapsed" th:href="@{/trinhdo}">
                 <i class="bi bi-grid"></i>
                 <span>Trình Độ</span>
             </a>
         </li><!-- Kết thúc Nav Trình Độ -->
-        <li class="nav-item">
-            <a class="nav-link ">
-                <i class="bi bi-grid"></i>
-                <span>Chuyên Môn</span>
-            </a>
-        </li><!-- Kết thúc Nav Chuyên Môn -->
-        <li class="nav-item">
-            <a class="nav-link ">
-                <i class="bi bi-grid"></i>
-                <span>Bằng Cấp</span>
-            </a>
-        </li><!-- Kết thúc Nav Bằng Cấp -->
-
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-cash-stack"></i><span>Nhân Viên</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a>
+                    <a th:href="@{/nhanvien}">
                         <i class="bi bi-circle"></i><span>Quản Lý Nhân Viên</span>
-                    </a>
-                    <a >
-                        <i class="bi bi-circle"></i><span>Danh Sách Nhân Viên</span>
                     </a>
                 </li>
             </ul>
@@ -155,9 +110,14 @@
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="dichvu-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a >
+                <li sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
+                    <a th:href="@{/tinhluong}">
                         <i class="bi bi-circle"></i><span>Quản Lý Lương</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/detailluong}">
+                        <i class="bi bi-circle"></i><span>Bảng Lương</span>
                     </a>
                 </li>
             </ul>
@@ -167,38 +127,42 @@
                 <i class="bi bi-pc-display-horizontal"></i><span>Công Tác</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="computer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a >
+                <li sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
+                    <a th:href="@{/congtac}">
                         <i class="bi bi-circle"></i><span>Quản Lý Công Tác</span>
                     </a>
                 </li>
 
             </ul>
         </li><!-- End Cong tác Nav -->
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
             <a class="nav-link collapsed" data-bs-target="#custorm-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-person-square"></i><span>Nhóm Nhân Viên</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="custorm-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a>
-                        <i class="bi bi-circle"></i><span>Quản Lý Nhóm Nhân Viên</span>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/nhomnhanvien}">
+                        <span>Nhóm Nhân Viên</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/chitietnhomnhanvien}">
+                        </i><span>Chi Tiết Nhóm Nhân Viên </span>
                     </a>
                 </li>
             </ul>
         </li>
-        <!-- Nhóm Nhan Vien -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#account-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-person-square"></i><span>Tài Khoản</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="account-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
+                <li sec:authorize="hasAnyAuthority('MANAGEMENT', 'ADMIN')">
                     <a th:href="@{/account/edit}">
                         <i class="bi bi-circle"></i><span>Sửa Tài Khoản</span>
                     </a>
                 </li>
-                <li>
+                <li sec:authorize="hasAnyAuthority('ADMIN')">
                     <a th:href="@{/account/phanquyen}">
                         <i class="bi bi-circle"></i><span>Phân Quyền</span>
                     </a>
