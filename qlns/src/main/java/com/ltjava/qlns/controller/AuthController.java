@@ -20,7 +20,7 @@ public class AuthController {
 
     @GetMapping("/home")
     public String test(){
-        return "home";
+        return "/statistic/index";
     }
 
     @GetMapping("/403")
