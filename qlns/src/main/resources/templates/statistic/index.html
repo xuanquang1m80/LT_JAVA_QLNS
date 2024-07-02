@@ -40,9 +40,7 @@
                                         <i class="bi bi-cart"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>145</h6>
-                                        <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                                        <h6 id="totalEmployees"></h6>
                                     </div>
                                 </div>
                             </div>
@@ -62,9 +60,7 @@
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>$3,264</h6>
-                                        <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                                        <h6 id="totalAccount"></h6>
                                     </div>
                                 </div>
                             </div>
@@ -86,8 +82,7 @@
                                         <i class="bi bi-calendar-date-fill"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>1244</h6>
-                                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        <h6 id="totalCongtac"></h6>
                                     </div>
                                 </div>
 
@@ -253,6 +248,17 @@
     </section>
 
 </section>
-
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+          // Gọi API để lấy số lượng nhân viên từ server
+          fetch('/api/totalemployee')
+              .then(response => response.json())
+              .then(totalEmployees => {
+                  // Cập nhật số lượng nhân viên lên giao diện
+                  document.getElementById('totalEmployees').innerText = totalEmployees;
+              })
+              .catch(error => console.error('Error fetching data:', error));
+      });
+</script>
 </body>
 </html>

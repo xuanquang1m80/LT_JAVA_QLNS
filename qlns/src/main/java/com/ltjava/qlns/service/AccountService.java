@@ -87,4 +87,7 @@ public class AccountService implements UserDetailsService {
                 .orElseThrow(() -> new RuntimeException("Account không tìm thấy id: " + id));
     }
 
+    public long countAccounts(){
+        return accountRepository.count();
+    }
 }

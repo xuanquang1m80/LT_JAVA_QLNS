@@ -62,3 +62,40 @@ document.addEventListener("DOMContentLoaded", function() {
              XLSX.writeFile(data, "DanhSachBangTinhLuong.xlsx");
          });
      });
+
+
+
+  ///Statistic employee
+  document.addEventListener("DOMContentLoaded", () => {
+          // Gọi API để lấy số lượng nhân viên từ server
+          fetch('/api/totalemployee')
+              .then(response => response.json())
+              .then(totalEmployees => {
+                  // Cập nhật số lượng nhân viên lên giao diện
+                  document.getElementById('totalEmployees').innerText = totalEmployees;
+              })
+              .catch(error => console.error('Error fetching data:', error));
+      });
+
+///Account
+document.addEventListener("DOMContentLoaded", () => {
+          // Gọi API để lấy số lượng  từ server
+          fetch('/api/totalaccount')
+              .then(response => response.json())
+              .then(totalAccount => {
+                  // Cập nhật số lượng giao diện
+                  document.getElementById('totalAccount').innerText = totalAccount;
+              })
+              .catch(error => console.error('Error fetching data:', error));
+      });
+/// Lich Cong Tac
+      document.addEventListener("DOMContentLoaded", () => {
+                // Gọi API để lấy số lượng  từ server
+                fetch('/api/totalaccount')
+                    .then(response => response.json())
+                    .then(totalAccount => {
+                        // Cập nhật số lượng giao diện
+                        document.getElementById('totalAccount').innerText = totalAccount;
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            });

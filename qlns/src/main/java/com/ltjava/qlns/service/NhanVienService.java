@@ -93,5 +93,9 @@ public class NhanVienService {
         nhanVienRepository.delete(nhanVien);
     }
 
+    public long countEmployees() {
+        return nhanVienRepository.count();
+    }
+
 
 }
