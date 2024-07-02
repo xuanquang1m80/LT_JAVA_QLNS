@@ -158,7 +158,7 @@
                                         const data = await response.json();
 
                                         const labels = data.map(phongBan => phongBan.tenPB);
-                                        const counts = data.map(phongBan => phongBan.nhanViens.length);
+                                        const counts = data.map(phongBan => phongBan.soLuongNhanVien);
 
                                         new Chart(document.querySelector('#pieChart'), {
                                             type: 'pie',
@@ -189,19 +189,26 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Bar CHart</h5>
+                                <h5 class="card-title">Chức Vụ</h5>
 
                                 <!-- Bar Chart -->
                                 <canvas id="barChart" style="max-height: 400px;"></canvas>
                                 <script>
-                                    document.addEventListener("DOMContentLoaded", () => {
+                                    document.addEventListener("DOMContentLoaded", async() => {
+
+                                         const response = await fetch('/api/chucvu');
+                                        const data = await response.json();
+
+                                        const labels = data.map(chucVu => chucVu.tenChucVu);
+                                        const counts = data.map(chucVu => chucVu.soLuongNhanVien);
+
                                       new Chart(document.querySelector('#barChart'), {
                                         type: 'bar',
                                         data: {
-                                          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                          labels: labels,
                                           datasets: [{
-                                            label: 'Bar Chart',
-                                            data: [65, 59, 80, 81, 56, 55, 40],
+                                            label: 'Số lượng nhân viên',
+                                            data: counts,
                                             backgroundColor: [
                                               'rgba(255, 99, 132, 0.2)',
                                               'rgba(255, 159, 64, 0.2)',

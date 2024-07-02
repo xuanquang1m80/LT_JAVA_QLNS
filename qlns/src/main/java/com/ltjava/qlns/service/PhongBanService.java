@@ -1,5 +1,6 @@
 package com.ltjava.qlns.service;
 
+import com.ltjava.qlns.dto.PhongBanDTO;
 import com.ltjava.qlns.exception.ResourceNotFoundException;
 import com.ltjava.qlns.model.PhongBan;
 import com.ltjava.qlns.repository.PhongBanRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PhongBanService {
@@ -44,5 +46,15 @@ public class PhongBanService {
     public void deletePhongBan(Long id) {
         PhongBan phongBan = getPhongBanById(id);
         phongBanRepository.delete(phongBan);
+    }
+
+    public List<PhongBanDTO> getAllPhongBan() {
+        return phongBanRepository.findAll().stream()
+                .map(phongBan -> new PhongBanDTO(
+                        phongBan.getId(),
+                        phongBan.getTenPB(),
+                        phongBan.getMoTa(),
+                        phongBan.getNhanViens().size()))
+                .collect(Collectors.toList());
     }
 }

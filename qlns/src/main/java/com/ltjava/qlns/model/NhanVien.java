@@ -1,12 +1,11 @@
 package com.ltjava.qlns.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
 
@@ -14,7 +13,10 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+//@RequiredArgsConstructor
+//@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NhanVien {
 
@@ -49,6 +51,7 @@ public class NhanVien {
 
     @ManyToOne
     @JoinColumn(name = "IDPhongBan")
+    @JsonBackReference
     PhongBan phongBan;
 
     @ManyToOne
@@ -57,6 +60,7 @@ public class NhanVien {
 
     @ManyToOne
     @JoinColumn(name = "IDChucVu")
+    @JsonBackReference
     ChucVu chucVu;
 
     @ManyToOne

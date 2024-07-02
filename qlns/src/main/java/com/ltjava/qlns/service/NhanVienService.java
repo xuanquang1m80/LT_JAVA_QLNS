@@ -13,10 +13,4 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NhanVienService {
 
-    @Autowired
-    private PhongBanRepository phongBanRepository;
-
-    public List<PhongBan> getAllPhongBan() {
-        return phongBanRepository.findAll();
-    }
 }
