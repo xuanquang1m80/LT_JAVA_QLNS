@@ -54,4 +54,10 @@ public class TinhLuongController {
             return "tinhluong/index";
         }
     }
+    @GetMapping("/details/{id}")
+    @ResponseBody
+    public TinhLuong getTinhLuongDetails(@PathVariable Long id) {
+        return tinhLuongRepository.findById(id).orElse(null);
+    }
+
 }

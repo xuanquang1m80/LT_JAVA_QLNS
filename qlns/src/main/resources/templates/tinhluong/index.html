@@ -104,10 +104,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Thymeleaf iteration for processed employees -->
                         <tr th:each="luong : ${processedEmployees}">
                             <td th:text="${luong.id}"></td>
-                            <td th:text="${luong.nhanVien.tenNV}"></td>
+                            <td class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ChiTietTinhLuong" th:text="${luong.nhanVien.tenNV}" th:data-id="${luong.id}"></td>
                             <td th:text="${luong.ngayCong}"></td>
                             <td th:text="${luong.ngayNghi}"></td>
                             <td th:text="${luong.phuCap}"></td>
@@ -120,14 +119,35 @@
             </div>
         </div>
     </div>
+    <!-- Modal Thông Tin Chi Tiết Bảng Lương -->
+    <div class="modal fade" id="ChiTietTinhLuong" tabindex="-1" aria-labelledby="ChiTietTinhLuong" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông Tin Chi Tiết Bảng Lương</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Tên Nhân Viên:</strong> <span id="chiTietTenNV"></span></p>
+                    <p><strong>Lương Tháng:</strong> <span id="chiTietLuongThang"></span></p>
+                    <p><strong>Ngày Công:</strong> <span id="chiTietNgayCong"></span></p>
+                    <p><strong>Ngày Nghỉ:</strong> <span id="chiTietNgayNghi"></span></p>
+                    <p><strong>Phụ Cấp:</strong> <span id="chiTietPhuCap"></span></p>
+                    <p><strong>Tạm Ứng:</strong> <span id="chiTietTamUng"></span></p>
+                    <p><strong>Thực Lãnh:</strong> <span id="chiTietThucLanh"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Error message display -->
     <div th:if="${error}" class="mt-3">
         <p class="alert alert-danger" th:text="${error}"></p>
     </div>
 </section>
-
-
 
 </body>
 </html>
