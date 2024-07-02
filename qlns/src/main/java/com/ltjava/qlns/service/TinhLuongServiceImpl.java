@@ -42,7 +42,7 @@ public class TinhLuongServiceImpl implements TinhLuongService {
             BigDecimal tamUng = tinhLuong.getTamUng();
             Double heSoLuong = nhanVien.getChucVu().getHeSoLuong();
 
-            // Tổng số ngày làm việc trong tháng (có thể là 22 ngày chẳng hạn)
+            // Tổng số ngày làm việc trong tháng (có thể là 26 ngày chẳng hạn)
             int tongNgayLamViecTrongThang = 26;
 
             // Tính lương thực lãnh

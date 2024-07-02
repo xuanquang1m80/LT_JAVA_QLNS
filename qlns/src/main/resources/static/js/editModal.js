@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", function() {
             var moTa = button.getAttribute("data-moTa");
 
             document.getElementById("editId").value = id;
-            document.getElementById("inputTextEdit").value = tenBC;
+            document.getElementById("inputTextEditBangCap").value = tenBC;
             document.getElementById("inputDescriptionEdit").value = moTa;
         });
     });
 });
-//Chuc Vu
+// CHức Vụ
 document.addEventListener("DOMContentLoaded", function() {
     var editButtons = document.querySelectorAll(".editButton");
     editButtons.forEach(function(button) {
@@ -21,18 +21,18 @@ document.addEventListener("DOMContentLoaded", function() {
             var id = button.getAttribute("data-id");
             var tenChucVu = button.getAttribute("data-tenChucVu");
             var luong = button.getAttribute("data-luong");
+            var heSoLuong = button.getAttribute("data-heSoLuong");
             var moTa = button.getAttribute("data-moTa");
 
             document.getElementById("editId").value = id;
             document.getElementById("inputTenChucVuEdit").value = tenChucVu;
             document.getElementById("inputLuongEdit").value = luong;
+            document.getElementById("inputHeSoLuongEdit").value = heSoLuong;
             document.getElementById("inputMoTaEdit").value = moTa;
-
-            var ngayTao = new Date().toISOString().slice(0, 19).replace('T', ' ');
-            document.getElementById("inputNgayTaoEdit").value = ngayTao;
         });
     });
 });
+
 
 
 

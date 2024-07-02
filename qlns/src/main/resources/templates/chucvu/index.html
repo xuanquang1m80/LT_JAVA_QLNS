@@ -12,7 +12,6 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-                <li class="breadcrumb-item">Tables</li>
                 <li class="breadcrumb-item active">Chức Vụ</li>
             </ol>
         </nav>
@@ -31,6 +30,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Tên Chức Vụ</th>
                     <th scope="col">Lương</th>
+                    <th scope="col">Hệ S.Lương</th>
                     <th scope="col">Mô Tả</th>
                     <th scope="col">Ngày Tạo</th>
                     <th scope="col">Ngày Sửa</th>
@@ -42,15 +42,17 @@
                     <th scope="row" th:text="${chucVu.id}"></th>
                     <td th:text="${chucVu.tenChucVu}"></td>
                     <td th:text="${chucVu.luong}"></td>
+                    <td th:text="${chucVu.heSoLuong}"></td>
                     <td th:text="${chucVu.moTa}"></td>
                     <td th:text="${chucVu.ngayTao}"></td>
                     <td th:text="${chucVu.ngaySua}"></td>
                     <td>
                         <!-- Button chỉnh sửa chức vụ modal -->
                         <button type="button" class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editModal"
-                                th:attr="data-id=${chucVu.id}, data-tenChucVu=${chucVu.tenChucVu}, data-luong=${chucVu.luong}, data-moTa=${chucVu.moTa}">
+                                th:attr="data-id=${chucVu.id}, data-tenChucVu=${chucVu.tenChucVu}, data-luong=${chucVu.luong}, data-heSoLuong=${chucVu.heSoLuong}, data-moTa=${chucVu.moTa}">
                             <i class="bi bi-pencil-square"></i>
                         </button>
+
                         <!-- Button xóa chức vụ -->
                         <a th:href="@{'/chucvu/delete/' + ${chucVu.id}}" class="btn btn-outline-danger">
                             <i class="bi bi-trash3"></i>
@@ -83,6 +85,12 @@
                             <label for="inputLuongAdd" class="col-sm-5 col-form-label">Lương</label>
                             <div class="col-sm-15">
                                 <input type="number" id="inputLuongAdd" class="form-control" name="luong">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputHeSoLuongAdd" class="col-sm-5 col-form-label">Hệ Số Lương</label>
+                            <div class="col-sm-15">
+                                <input type="number" id="inputHeSoLuongAdd" class="form-control" name="heSoLuong">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -123,6 +131,12 @@
                             <label for="inputLuongEdit" class="col-sm-5 col-form-label">Lương</label>
                             <div class="col-sm-15">
                                 <input type="number" id="inputLuongEdit" class="form-control" name="luong">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputHeSoLuongEdit" class="col-sm-5 col-form-label">Hệ Số Lương</label>
+                            <div class="col-sm-15">
+                                <input type="number" id="inputHeSoLuongEdit" class="form-control" name="heSoLuong">
                             </div>
                         </div>
                         <div class="row mb-3">
