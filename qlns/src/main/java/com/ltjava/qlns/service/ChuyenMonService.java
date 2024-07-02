@@ -13,7 +13,9 @@ public class ChuyenMonService {
 
     @Autowired
     private ChuyenMonRepository chuyenMonRepository;
-
+    public List<ChuyenMon> getAllChuyenMon() {
+        return chuyenMonRepository.findAll();
+    }
     public List<ChuyenMon> findAll() {
         return chuyenMonRepository.findAll();
     }

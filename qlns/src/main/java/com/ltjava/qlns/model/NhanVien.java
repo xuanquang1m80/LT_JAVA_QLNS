@@ -36,6 +36,8 @@ public class NhanVien {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date ngaySinh;
+
+
     String hoKhau;
 
     @Column(name = "phone", length = 10, unique = true)

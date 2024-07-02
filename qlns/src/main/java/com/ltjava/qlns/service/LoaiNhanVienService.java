@@ -9,11 +9,11 @@ import java.util.List;
 
 @Service
 public class LoaiNhanVienService {
+
     @Autowired
     private LoaiNhanVienRepository loaiNhanVienRepository;
 
-    public List<LoaiNhanVien> getAllLoaiNhanVien(){
+    public List<LoaiNhanVien> getAllLoaiNhanVien() {
         return loaiNhanVienRepository.findAll();
     }
-
 }
