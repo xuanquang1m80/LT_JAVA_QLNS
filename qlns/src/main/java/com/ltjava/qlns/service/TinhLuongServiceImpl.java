@@ -1,13 +1,19 @@
 package com.ltjava.qlns.service;
 
+import com.ltjava.qlns.model.Account;
 import com.ltjava.qlns.model.TinhLuong;
 import com.ltjava.qlns.model.NhanVien;
+import com.ltjava.qlns.repository.AccountRepository;
 import com.ltjava.qlns.repository.TinhLuongRepository;
 import com.ltjava.qlns.repository.NhanVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +24,9 @@ public class TinhLuongServiceImpl implements TinhLuongService {
 
     @Autowired
     private NhanVienRepository nhanVienRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Override
     public TinhLuong tinhLuong(TinhLuong tinhLuong) {
@@ -50,4 +59,18 @@ public class TinhLuongServiceImpl implements TinhLuongService {
             throw new RuntimeException("Không tìm thấy nhân viên với ID: " + tinhLuong.getNhanVien().getId());
         }
     }
+
+
+    public List<TinhLuong> getTinhLuongByCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        Account account = accountRepository.getByUsername(currentUsername);
+
+        if (account != null && account.getNhanVien() != null) {
+            return tinhLuongRepository.findByNhanVienId(account.getNhanVien().getId());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
 }
