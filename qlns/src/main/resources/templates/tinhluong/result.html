@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Kết Quả Tính Lương</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+    <style>
+        /* Custom styles for this template */
+        .table-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+    <h1>Kết Quả Tính Lương</h1>
+
+    <!-- Lương thông tin cá nhân -->
+    <div class="mb-4">
+        <p>Lương Tháng: <span th:text="${result.luongThang}"></span></p>
+        <p>Ngày Công: <span th:text="${result.ngayCong}"></span></p>
+        <p>Ngày Nghỉ: <span th:text="${result.ngayNghi}"></span></p>
+        <p>Phụ Cấp: <span th:text="${result.phuCap}"></span></p>
+        <p>Tạm Ứng: <span th:text="${result.tamUng}"></span></p>
+        <p>Thực Lãnh: <span th:text="${result.thucLanh}"></span></p>
+        <p>Ngày Tính Lương: <span th:text="${#dates.format(result.ngayTinhLuong, 'yyyy-MM-dd')}"></span></p>
+        <p>Mô Tả: <span th:text="${result.moTa}"></span></p>
+    </div>
+
+    <!-- Bảng danh sách nhân viên -->
+    <div class="table-container">
+        <h2>Danh Sách Nhân Viên</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID Nhân Viên</th>
+                <th scope="col">Tên Nhân Viên</th>
+                <th scope="col">Thực Lãnh</th>
+                <th scope="col">Ngày Tính Lương</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Thymeleaf iteration for employee list -->
+            <tr th:each="employee : ${listOfEmployees}">
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.tenNV}"></td>
+                <td th:text="${employee.thucLanh}"></td>
+                <td th:text="${#dates.format(employee.ngayTinhLuong, 'yyyy-MM-dd')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a th:href="@{/tinhluong}" class="btn btn-primary mt-3">Tính Lương Mới</a>
+</section>
+
+</body>
+</html>

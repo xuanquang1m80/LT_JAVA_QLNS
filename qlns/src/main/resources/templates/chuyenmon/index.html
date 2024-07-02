@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <title>Quản lý Chuyên Môn</title>
-</head>
-<body>
-<section layout:fragment="content" class="container mt-5">
-    <div class="pagetitle">
-        <h1>Chuyên Môn</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">Home</li>
-                <li class="breadcrumb-item">Chuyên Môn</li>
-            </ol>
-        </nav>
-    </div>
+    </head>
+    <body>
+    <section layout:fragment="content" class="container mt-5">
+        <div class="pagetitle">
+            <h1>Chuyên Môn</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">Chuyên Môn</li>
+                </ol>
+            </nav>
+        </div>
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Danh Sách Chuyên Môn</h5>
@@ -22,7 +22,7 @@
                 Thêm Chuyên Môn
             </button>
             <!-- Default Table -->
-            <table class="table">
+            <table id="example" class="table">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>

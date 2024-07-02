@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -15,7 +14,10 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Role implements GrantedAuthority{
 
     @Id
@@ -35,6 +37,9 @@ public class Role implements GrantedAuthority{
     @ToString.Exclude
     private Set<Account> accounts = new HashSet<>();
 
+    public @NotBlank(message = "Tên quyền được không được trống") @Size(max = 50, message = "Tên quyền ngắn hơn  50 kí tự") String getName() {
+        return name;
+    }
 
     @Override
     public String getAuthority() {

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Quản lý Công Tác</title>
+    <script>
+        function confirmDelete(event) {
+            if (!confirm("Bạn có chắc chắn muốn xóa không?")) {
+                event.preventDefault();
+            }
+        }
+
+         document.addEventListener("DOMContentLoaded", function () {
+            var editButtons = document.querySelectorAll(".editButton");
+            editButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var id = button.getAttribute("data-id");
+                    var ngayBD = button.getAttribute("data-ngayBD");
+                    var ngayKT = button.getAttribute("data-ngayKT");
+                    var diaDiemCT = button.getAttribute("data-diaDiemCT");
+                    var mucDich = button.getAttribute("data-mucDich");
+                    var nhanVien = button.getAttribute("data-nhanVien");
+                    var ngayTao = button.getAttribute("data-ngayTao");
+
+                    document.getElementById("editId").value = id;
+                    document.getElementById("inputNgayBDEdit").value = ngayBD;
+                    document.getElementById("inputNgayKTEdit").value = ngayKT;
+                    document.getElementById("inputDiaDiemCTEdit").value = diaDiemCT;
+                    document.getElementById("inputMucDichEdit").value = mucDich;
+                    document.getElementById("inputNhanVienEdit").value = nhanVien;
+                    document.getElementById("inputNgayTaoEdit").value = ngayTao;
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+    <div class="pagetitle">
+        <h1>Công Tác</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                <li class="breadcrumb-item">Tables</li>
+                <li class="breadcrumb-item active">Công Tác</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Danh Sách Công Tác</h5>
+            <!-- Button thêm công tác modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCongTacModal">
+                Thêm Công Tác
+            </button>
+            <!-- Button xuất file Excel -->
+            <a href="/congtac/export" class="btn btn-success">
+                Xuất file Excel
+            </a>
+            <!-- Default Table -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Ngày Bắt Đầu</th>
+                    <th scope="col">Ngày Kết Thúc</th>
+                    <th scope="col">Địa Điểm</th>
+                    <th scope="col">Mục Đích</th>
+                    <th scope="col">ID Nhân Viên</th>
+                    <th scope="col">Ngày Tạo</th>
+                    <th scope="col">Chức năng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="congTac : ${congTacs}">
+                    <th scope="row" th:text="${congTac.id}">1</th>
+                    <td th:text="${#dates.format(congTac.ngayBD, 'yyyy-MM-dd')}">2023-01-01</td>
+                    <td th:text="${#dates.format(congTac.ngayKT, 'yyyy-MM-dd')}">2023-01-10</td>
+                    <td th:text="${congTac.diaDiemCT}">Hà Nội</td>
+                    <td th:text="${congTac.mucDich}">Công tác dự án A</td>
+                    <td th:text="${congTac.nhanVien.id}">1</td>
+                    <td th:text="${#dates.format(congTac.ngayTao, 'yyyy-MM-dd')}">2023-01-01</td>
+                    <td>
+                        <!-- Button chỉnh sửa công tác modal -->
+                        <button type="button"
+                                class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editCongTacModal"
+                                th:attr="data-id=${congTac.id},
+                                        data-ngayBD=${#dates.format(congTac.ngayBD, 'yyyy-MM-dd')},
+                                        data-ngayKT=${#dates.format(congTac.ngayKT, 'yyyy-MM-dd')},
+                                        data-diaDiemCT=${congTac.diaDiemCT},
+                                        data-mucDich=${congTac.mucDich},
+                                        data-nhanVien=${congTac.nhanVien.id},
+                                        data-ngayTao=${#dates.format(congTac.ngayTao, 'yyyy-MM-dd')}">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <!-- Button xóa công tác -->
+                        <a th:href="@{'/congtac/delete/' + ${congTac.id}}" class="btn btn-outline-danger" onclick="confirmDelete(event)">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- End Default Table Example -->
+        </div>
+    </div>
+
+    <!-- Modal thêm công tác -->
+    <div class="modal fade" id="addCongTacModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Thêm Công Tác Mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/congtac}" method="post">
+                        <div class="row mb-3">
+                            <label for="inputNgayBDAdd" class="col-sm-5 col-form-label">Ngày Bắt Đầu</label>
+                            <div class="col-sm-15">
+                                <input type="date" id="inputNgayBDAdd" class="form-control" name="ngayBD">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNgayKTAdd" class="col-sm-5 col-form-label">Ngày Kết Thúc</label>
+                            <div class="col-sm-15">
+                                <input type="date" id="inputNgayKTAdd" class="form-control" name="ngayKT">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputDiaDiemCTAdd" class="col-sm-5 col-form-label">Địa Điểm</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputDiaDiemCTAdd" class="form-control" name="diaDiemCT">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputMucDichAdd" class="col-sm-5 col-form-label">Mục Đích</label>
+                            <div class="col-sm-15">
+                                <textarea id="inputMucDichAdd" class="form-control" name="mucDich" style="height: 100px"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputNhanVienAdd" class="col-sm-5 col-form-label">ID Nhân Viên</label>
+                            <div class="col-sm-15">
+                                <select id="inputNhanVienAdd" class="form-select" name="nhanVien">
+                                    <option th:each="nv : ${nhanViens}" th:value="${nv.id}" th:text="${nv.id}">1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNgayTaoAdd" class="col-sm-5 col-form-label">Ngày Tạo</label>
+                            <div class="col-sm-15">
+                                <input type="date" id="inputNgayTaoAdd" class="form-control" name="ngayTao">
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal sửa công tác -->
+    <div class="modal fade" id="editCongTacModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Công Tác</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/congtac/update}" method="POST">
+                        <input type="hidden" id="editId" name="id"> <!-- Hidden input to hold the ID -->
+                        <div class="row mb-3">
+                            <label for="inputNgayBDEdit" class="col-sm-5 col-form-label">Ngày Bắt Đầu</label>
+                            <div class="col-sm-15">
+                                <input type="date" id="inputNgayBDEdit" class="form-control" name="ngayBD">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNgayKTEdit" class="col-sm-5 col-form-label">Ngày Kết Thúc</label>
+                            <div class="col-sm-15">
+                                <input type="date" id="inputNgayKTEdit" class="form-control" name="ngayKT">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputDiaDiemCTEdit" class="col-sm-5 col-form-label">Địa Điểm</label>
+                            <div class="col-sm-15">
+                                <input type="text" id="inputDiaDiemCTEdit" class="form-control" name="diaDiemCT">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputMucDichEdit" class="col-sm-5 col-form-label">Mục Đích</label>
+                            <div class="col-sm-15">
+                                <textarea id="inputMucDichEdit" class="form-control" name="mucDich" style="height: 100px"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputNhanVienEdit" class="col-sm-5 col-form-label">ID Nhân Viên</label>
+                            <div class="col-sm-15">
+                                <select id="inputNhanVienEdit" class="form-select" name="nhanVien">
+                                    <option th:each="nv : ${nhanViens}" th:value="${nv.id}" th:text="${nv.id}">1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNgayTaoEdit" class="col-sm-5 col-form-label">Ngày Tạo</label>
+                            <div class="col-sm-15">
+                                <input type="date" id="inputNgayTaoEdit" class="form-control" name="ngayTao">
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>

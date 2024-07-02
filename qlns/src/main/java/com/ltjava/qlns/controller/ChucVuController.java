@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -25,6 +26,7 @@ public class ChucVuController {
 
     @PostMapping
     public String addChucVu(@ModelAttribute ChucVu chucVu) {
+        chucVu.setNgayTao(new Date());
         chucVuService.saveChucVu(chucVu);
         return "redirect:/chucvu";
     }
@@ -37,7 +39,14 @@ public class ChucVuController {
 
     @PostMapping("/update")
     public String updateChucVu(@ModelAttribute ChucVu chucVu) {
-        chucVuService.saveChucVu(chucVu);
+        ChucVu existingChucVu = chucVuService.getChucVuById(chucVu.getId()).orElse(null);
+        if (existingChucVu != null) {
+            existingChucVu.setTenChucVu(chucVu.getTenChucVu());
+            existingChucVu.setLuong(chucVu.getLuong());
+            existingChucVu.setMoTa(chucVu.getMoTa());
+            existingChucVu.setNgaySua(new Date());
+            chucVuService.saveChucVu(existingChucVu); // Use service method to save
+        }
         return "redirect:/chucvu";
     }
 }

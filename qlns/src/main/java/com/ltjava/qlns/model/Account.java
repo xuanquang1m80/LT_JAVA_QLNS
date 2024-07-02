@@ -6,8 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,9 +17,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Account implements UserDetails{
 
@@ -49,7 +52,7 @@ public class Account implements UserDetails{
     String SDT;
 
     @ManyToOne
-    @JoinColumn(name = "IDTrangThaiTK")
+    @JoinColumn(name = "IDTrangThaiTK", referencedColumnName = "id")
     TrangThaiAccount trangThaiAccount;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -63,6 +66,10 @@ public class Account implements UserDetails{
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .toList();
     }
+
+    @OneToOne
+    @JoinColumn(name = "nhan_vien_id")
+    NhanVien nhanVien;
 
     @Override
     public boolean isAccountNonExpired() {
@@ -83,4 +90,10 @@ public class Account implements UserDetails{
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
+    // Phương thức tiện ích để lấy tên các role dưới dạng chuỗi
+    public String getRoleNames() {
+        return roles.stream().map(Role::getName).collect(Collectors.joining(", "));
+    }
+
+
 }
