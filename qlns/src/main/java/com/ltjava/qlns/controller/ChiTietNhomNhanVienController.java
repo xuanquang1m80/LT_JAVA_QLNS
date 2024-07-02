@@ -1,7 +1,11 @@
 package com.ltjava.qlns.controller;
 
 
+import com.ltjava.qlns.model.ChiTietNhomNhanVien;
+import com.ltjava.qlns.model.NhanVien;
 import com.ltjava.qlns.model.NhomNhanVien;
+import com.ltjava.qlns.service.ChiTietNhomNhanVienService;
+import com.ltjava.qlns.service.NhanVienService;
 import com.ltjava.qlns.service.NhomNhanVienService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,49 +23,53 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/nhomnhanvien")
-public class NhomNhanVienController {
+@RequestMapping("/chitietnhomnhanvien")
+public class ChiTietNhomNhanVienController {
 
     @Autowired
+    private ChiTietNhomNhanVienService chiTietNhomNhanVienService;
+    @Autowired
     private NhomNhanVienService nhomNhanVienService;
+    @Autowired
+    private NhanVienService nhanVienService;
 
     @GetMapping
     public String getAllNhomNhanViens(Model model) {
+        model.addAttribute("chiTietNhomNhanViens", chiTietNhomNhanVienService.findAll());
+        model.addAttribute("nhanViens", nhanVienService.getdAllNhanVien());
         model.addAttribute("nhomNhanViens", nhomNhanVienService.findAll());
-        return "nhomnhanvien/index";
+        return "chitietnhomnhanvien/index";
     }
 
     @GetMapping("/export")
     public ResponseEntity<StreamingResponseBody> exportToExcel() {
-        List<NhomNhanVien> nhomNhanViens = nhomNhanVienService.findAll();
+        List<ChiTietNhomNhanVien> chiTietNhomNhanViens = chiTietNhomNhanVienService.findAll();
 
         StreamingResponseBody stream = out -> {
             try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-                Sheet sheet = workbook.createSheet("NhomNhanVien");
+                Sheet sheet = workbook.createSheet("ChiTietNhomNhanVien");
 
                 // Create header row
                 Row headerRow = sheet.createRow(0);
-                String[] headers = {"ID", "Tên Nhóm", "Mô Tả"};
+                String[] headers = {"ID", "Tên Nhân Viên", "Tên Nhóm Nhân Viên"};
                 for (int i = 0; i < headers.length; i++) {
                     Cell cell = headerRow.createCell(i);
                     cell.setCellValue(headers[i]);
                 }
 
-                // Create data rows
+                // Populate data rows
                 int rowNum = 1;
-                for (NhomNhanVien nhomNhanVien : nhomNhanViens) {
+                for (ChiTietNhomNhanVien chiTiet : chiTietNhomNhanViens) {
                     Row row = sheet.createRow(rowNum++);
-
-                    row.createCell(0).setCellValue(nhomNhanVien.getId());
-                    row.createCell(1).setCellValue(nhomNhanVien.getTenNhom());
-                    row.createCell(2).setCellValue(nhomNhanVien.getMoTa());
+                    row.createCell(0).setCellValue(chiTiet.getId());
+                    row.createCell(1).setCellValue(chiTiet.getNhanVien().getTenNV());
+                    row.createCell(2).setCellValue(chiTiet.getNhomNhanVien().getTenNhom());
                 }
 
                 workbook.write(bos);
@@ -71,36 +79,42 @@ public class NhomNhanVienController {
             }
         };
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=chitiet_nhom_nhan_vien.xlsx");
+
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=nhomnhanvien.xlsx")
+                .headers(headers)
                 .body(stream);
     }
 
 
 
     @PostMapping
-    public String createNhomNhanVien(@ModelAttribute NhomNhanVien nhomNhanVien) {
-        nhomNhanVienService.save(nhomNhanVien);
-        return "redirect:/nhomnhanvien";
+    public String createNhomNhanVien(@ModelAttribute ChiTietNhomNhanVien chiTietNhomNhanVien) {
+        chiTietNhomNhanVienService.save(chiTietNhomNhanVien);
+
+        return "redirect:/chitietnhomnhanvien";
     }
 
 
 
     @PostMapping("/update")
-    public String updateNhomNhanVien(@Valid NhomNhanVien nhomNhanVien, BindingResult result, Model model) {
+    public String updateNhomNhanVien(@Valid ChiTietNhomNhanVien chiTietNhomNhanVien, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("chiTietNhomNhanViens", chiTietNhomNhanVienService.findAll());
+            model.addAttribute("nhanViens", nhanVienService.getdAllNhanVien());
             model.addAttribute("nhomNhanViens", nhomNhanVienService.findAll());
 
 
             return "nhomnhanvien/index";
         }
-        nhomNhanVienService.save(nhomNhanVien);
-        return "redirect:/nhomnhanvien";
+        chiTietNhomNhanVienService.save(chiTietNhomNhanVien);
+        return "redirect:/chitietnhomnhanvien";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteNhomNhanVien(@PathVariable Long id) {
-        nhomNhanVienService.deleteById(id);
-        return "redirect:/nhomnhanvien";
+        chiTietNhomNhanVienService.deleteById(id);
+        return "redirect:/chitietnhomnhanvien";
     }
 }
