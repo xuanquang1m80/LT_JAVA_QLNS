@@ -1,6 +1,7 @@
 package com.ltjava.qlns.service;
 
 import com.ltjava.qlns.model.ChuyenMon;
+import com.ltjava.qlns.model.TrinhDo;
 import com.ltjava.qlns.repository.ChuyenMonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,14 @@ public class ChuyenMonService {
 
     @Autowired
     private ChuyenMonRepository chuyenMonRepository;
-
+    public List<ChuyenMon> getAllChuyenMon() {
+        return chuyenMonRepository.findAll();
+    }
     public List<ChuyenMon> findAll() {
+        return chuyenMonRepository.findAll();
+    }
+
+    public List<ChuyenMon> getAllChuyenMons() {
         return chuyenMonRepository.findAll();
     }
 

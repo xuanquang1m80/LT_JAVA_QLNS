@@ -25,25 +25,30 @@
                 Thêm Chức Vụ
             </button>
             <!-- Default Table -->
-            <table class="table">
+            <table id="example" class="table">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Tên Chức Vụ</th>
                     <th scope="col">Lương</th>
                     <th scope="col">Mô Tả</th>
+                    <th scope="col">Ngày Tạo</th>
+                    <th scope="col">Ngày Sửa</th>
                     <th scope="col">Chức năng</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="chucVu : ${chucVus}">
-                    <th scope="row" th:text="${chucVu.id}">1</th>
-                    <td th:text="${chucVu.tenChucVu}">Manager</td>
-                    <td th:text="${chucVu.luong}">10000</td>
-                    <td th:text="${chucVu.moTa}">Quản lý</td>
+                    <th scope="row" th:text="${chucVu.id}"></th>
+                    <td th:text="${chucVu.tenChucVu}"></td>
+                    <td th:text="${chucVu.luong}"></td>
+                    <td th:text="${chucVu.moTa}"></td>
+                    <td th:text="${chucVu.ngayTao}"></td>
+                    <td th:text="${chucVu.ngaySua}"></td>
                     <td>
                         <!-- Button chỉnh sửa chức vụ modal -->
-                        <button type="button" class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editModal" th:attr="data-id=${chucVu.id}, data-tenChucVu=${chucVu.tenChucVu}, data-luong=${chucVu.luong}, data-moTa=${chucVu.moTa}">
+                        <button type="button" class="btn btn-outline-primary editButton" data-bs-toggle="modal" data-bs-target="#editModal"
+                                th:attr="data-id=${chucVu.id}, data-tenChucVu=${chucVu.tenChucVu}, data-luong=${chucVu.luong}, data-moTa=${chucVu.moTa}">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                         <!-- Button xóa chức vụ -->
@@ -86,6 +91,7 @@
                                 <textarea id="inputMoTaAdd" class="form-control" name="moTa" style="height: 100px"></textarea>
                             </div>
                         </div>
+                        <input type="hidden" name="ngayTao" th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd HH:mm:ss')}">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                             <button type="submit" class="btn btn-primary">Lưu</button>
@@ -125,6 +131,7 @@
                                 <textarea id="inputMoTaEdit" class="form-control" name="moTa" style="height: 100px"></textarea>
                             </div>
                         </div>
+                        <input type="hidden" name="ngaySua" th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd HH:mm:ss')}">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                             <button type="submit" class="btn btn-primary">Lưu</button>
@@ -134,6 +141,7 @@
             </div>
         </div>
     </div>
+
 </section>
 </body>
 </html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Detail Lương</title>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+
+    <div class="pagetitle">
+        <h1>Tính Lương</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Lương</li>
+                <li class="breadcrumb-item">Danh Sách Lương Ứng Với Nhân Viên</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <!-- Table to display processed employees -->
+                <div class="col-lg-12 mt-3">
+                    <table id="example" class="table table-striped">
+                        <thead>
+                        <tr>
+                                        <th>ID</th>
+                                        <th>Lương tháng</th>
+                                        <th>Ngày công</th>
+                                        <th>Ngày nghỉ</th>
+                                        <th>Phụ cấp</th>
+                                        <th>Tạm ứng</th>
+                                        <th>Thực lãnh</th>
+                                        <th>Ngày tính lương</th>
+                                        <th>Mô tả</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="tinhluong : ${processedEmployees}">
+                                        <td th:text="${tinhluong.id}">ID</td>
+                                        <td th:text="${tinhluong.luongThang}">Lương tháng</td>
+                                        <td th:text="${tinhluong.ngayCong}">Ngày công</td>
+                                        <td th:text="${tinhluong.ngayNghi}">Ngày nghỉ</td>
+                                        <td th:text="${tinhluong.phuCap}">Phụ cấp</td>
+                                        <td th:text="${tinhluong.tamUng}">Tạm ứng</td>
+                                        <td th:text="${tinhluong.thucLanh}">Thực lãnh</td>
+                                        <td th:text="${tinhluong.ngayTinhLuong}">Ngày tính lương</td>
+                                        <td th:text="${tinhluong.moTa}">Mô tả</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

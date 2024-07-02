@@ -1,19 +1,20 @@
 package com.ltjava.qlns.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TinhLuong {
 
@@ -23,10 +24,16 @@ public class TinhLuong {
 
     BigDecimal luongThang;
     Integer ngayCong;
+    Integer ngayNghi;
     BigDecimal phuCap;
     BigDecimal tamUng;
     BigDecimal thucLanh;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date ngayTinhLuong;
 
     String moTa;
+
+    @ManyToOne
+    @JoinColumn(name = "IDNhanVien")
+    NhanVien nhanVien;
 }

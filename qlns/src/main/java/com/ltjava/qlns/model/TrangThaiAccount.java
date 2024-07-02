@@ -17,5 +17,6 @@ public class TrangThaiAccount {
 
     @OneToMany(mappedBy = "trangThaiAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Account> accounts;
+
 }
 

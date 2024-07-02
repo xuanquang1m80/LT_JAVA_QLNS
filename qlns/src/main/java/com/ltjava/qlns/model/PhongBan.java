@@ -1,17 +1,20 @@
 package com.ltjava.qlns.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
+@Setter
+@Getter
+//@RequiredArgsConstructor
+//@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PhongBan {
 
@@ -28,5 +31,6 @@ public class PhongBan {
     Date ngaySua;
 
     @OneToMany(mappedBy = "phongBan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<NhanVien> nhanViens;
 }

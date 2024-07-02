@@ -1,19 +1,24 @@
 package com.ltjava.qlns.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+//@RequiredArgsConstructor
+//@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NhanVien {
 
@@ -29,7 +34,10 @@ public class NhanVien {
     @Pattern(regexp = "^[0-9]*$", message = "CCCD là bắt buộc")
     String CCCD;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date ngaySinh;
+
+
     String hoKhau;
 
     @Column(name = "phone", length = 10, unique = true)
@@ -37,6 +45,8 @@ public class NhanVien {
     @Pattern(regexp = "^[0-9]*$", message = "Số điện thoại phải là số")
     String SDT;
 
+    @Transient
+    MultipartFile imageFile;
     String image;
 
     @Enumerated(EnumType.STRING)
@@ -48,6 +58,7 @@ public class NhanVien {
 
     @ManyToOne
     @JoinColumn(name = "IDPhongBan")
+    @JsonBackReference
     PhongBan phongBan;
 
     @ManyToOne
@@ -56,6 +67,7 @@ public class NhanVien {
 
     @ManyToOne
     @JoinColumn(name = "IDChucVu")
+    @JsonBackReference
     ChucVu chucVu;
 
     @ManyToOne
@@ -81,4 +93,12 @@ public class NhanVien {
             inverseJoinColumns = @JoinColumn(name = "IDNhomNV")
     )
     Set<NhomNhanVien> nhomNhanViens;
+
+
+    @OneToOne(mappedBy = "nhanVien", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    @ToString.Exclude
+    private Account account;
+
+    @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<TinhLuong> tinhLuongs;
 }
