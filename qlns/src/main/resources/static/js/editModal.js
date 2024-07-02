@@ -62,4 +62,26 @@ document.addEventListener("DOMContentLoaded", function() {
      });
  });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const detailModal = document.getElementById('ChiTietTinhLuong');
+
+    detailModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const luongId = button.getAttribute('data-id');
+
+        fetch(`/tinhluong/details/${luongId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('chiTietTenNV').innerText = data.nhanVien.tenNV;
+                document.getElementById('chiTietLuongThang').innerText = data.luongThang;
+                document.getElementById('chiTietNgayCong').innerText = data.ngayCong;
+                document.getElementById('chiTietNgayNghi').innerText = data.ngayNghi;
+                document.getElementById('chiTietPhuCap').innerText = data.phuCap;
+                document.getElementById('chiTietTamUng').innerText = data.tamUng;
+                document.getElementById('chiTietThucLanh').innerText = data.thucLanh;
+            })
+            .catch(error => console.error('Error:', error));
+    });
+});
+
 
