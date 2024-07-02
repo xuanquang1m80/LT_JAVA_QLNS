@@ -9,5 +9,4 @@ public class QlnsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(QlnsApplication.class, args);
 	}
-
 }
